@@ -4,18 +4,15 @@ Algorithm
 Some algorithim and problems. I will keep updating the list when i get chance to add more. 
 
 **Algorithm**
-
-**String**
-- Knuth-morris-pratt
-
-**Graph** 
-- Maximum Flow -ford fulkerson
-- BFS
-
-**Binary Tree**
-- Level Order/Reverse Level Order
-- Preorder/Inorder using stack
-- height
+- String
+    - Knuth-morris-pratt
+- Graph 
+    - Maximum Flow -ford fulkerson
+    - BFS
+- Binary Tree
+    - Level Order/Reverse Level Order
+    - Preorder/Inorder using stack
+    - height
 
 **Problems**
 - List
@@ -29,4 +26,3 @@ Some algorithim and problems. I will keep updating the list when i get chance to
     - Shortest path with left, right, top and bottom move
 - Bit Manipulation
     - Non repeating single number
-
