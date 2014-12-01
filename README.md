@@ -26,6 +26,7 @@ Some algorithim and problems. I will keep updating the list when i get chance to
 - Graph
     - Unique path
     - Unique path with obstacle
+    - Shortest path with left, right, top and bottom move
 - Bit Manipulation
     - Non repeating single number
 
