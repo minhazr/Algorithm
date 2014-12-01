@@ -42,7 +42,6 @@ public class FordFulkerson {
 		return visited[t];
 	}
 	public int fordFulkerson(int[][] graph, int s, int t) {
-		System.out.println("Source " + s + " Destination " + t);
 		int u, v;
 
 		// Create a residual graph and fill the residual graph with
