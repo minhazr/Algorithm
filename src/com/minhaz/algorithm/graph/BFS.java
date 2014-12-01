@@ -36,12 +36,46 @@ public class BFS {
 		}
 		return list;
 	}
+	/**
+	 * Do a BFS traversal of entire graph and return it in a list
+	 * 
+	 * @param source
+	 * @return
+	 */
+	public List<Integer> doBFS(int source) {
+		List<Integer> list = new ArrayList<Integer>();
+		Queue<Integer> q = new LinkedList<Integer>();
+		resetVisited();
+		q.add(source);
+		list.add(source);
+		visited[source] = true;
+
+		// Standard BFS Loop
+		while (!q.isEmpty()) {
+			int u = q.peek();
+			q.poll();
+
+			for (int v = 0; v < graph.length; v++) {
+				if (!isVisited(v) && (graph[u][v] > 0)) {
+					q.add(v);
+					list.add(v);
+					visited[v] = true;
+				}
+			}
+		}
+		return list;
+	}
 
 	public void setVisited(int vertices, boolean flag) {
 		visited[vertices] = flag;
 	}
 	public boolean isVisited(int vertices) {
 		return visited[vertices];
+	}
+	public void resetVisited() {
+		for (int i = 0; i < visited.length; i++) {
+			visited[i] = false;
+		}
 	}
 
 	/**
