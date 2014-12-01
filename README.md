@@ -13,7 +13,7 @@ Some algorithim and problems. I will keep updating the list when i get chance to
     - Level Order/Reverse Level Order
     - Preorder/Inorder using stack
     - height
-- Fibunacci 
+- Fibonacci 
     - Recursive/ Dynamic Programming/ Constant space
 
 **Problems**
