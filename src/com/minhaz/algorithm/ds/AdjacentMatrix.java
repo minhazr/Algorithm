@@ -7,10 +7,11 @@ public class AdjacentMatrix implements Graph {
 
 	private final int[][] matrix;
 
-	AdjacentMatrix(int vertices) {
+	public AdjacentMatrix(int vertices) {
 		matrix = new int[vertices][vertices];
 	}
 
+	@Override
 	public void addPath(int source, int destination, int weight) {
 		if (!isValidVertices(source, destination)) {
 			return;
@@ -54,6 +55,18 @@ public class AdjacentMatrix implements Graph {
 		}
 
 		return false;
+	}
+
+	@Override
+	public void addPath(int source, int destination) {
+		addPath(source, destination, -1);
+
+	}
+
+	@Override
+	public int countVertices() {
+		// TODO Auto-generated method stub
+		return matrix.length;
 	}
 
 }

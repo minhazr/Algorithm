@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class AdjacentList {
+public class AdjacentList implements Graph {
 	private HashMap<Integer, List<Node>> graph;
 	private final boolean directed;
 
-	AdjacentList(int vertices, boolean directed) {
+	public AdjacentList(int vertices, boolean directed) {
 		graph = new HashMap<Integer, List<Node>>(vertices);
 		this.directed = directed;
 
 	}
 
+	@Override
 	public void addPath(int source, int destination, int weight) {
 		if (graph.containsKey(source)) {
 			graph.get(source).add(new Node(destination, weight));
@@ -33,16 +34,35 @@ public class AdjacentList {
 		}
 	}
 
-	public List<Node> getNeighbours(int vertics) {
+	public int[] getNeighbours(int vertics) {
 		if (vertics < 0) {
-			return new ArrayList<Node>();
+			return new int[0];
 		}
+		int[] result;
 		if (graph.containsKey(vertics)) {
-			return graph.get(vertics);
+			List<Node> list = graph.get(vertics);
+			result = new int[list.size()];
+			for (int i = 0; i < result.length; i++) {
+				result[i] = list.get(i).getVertex();
+
+			}
+			return result;
 		}
 
-		return new ArrayList<Node>();
+		return new int[0];
 
+	}
+
+	@Override
+	public void addPath(int source, int destination) {
+		addPath(source, destination, -1);
+
+	}
+
+	@Override
+	public int countVertices() {
+		// TODO Auto-generated method stub
+		return graph.size();
 	}
 
 }
