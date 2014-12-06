@@ -7,6 +7,7 @@ import java.util.List;
 public class AdjacentList implements Graph {
 	private HashMap<Integer, List<Node>> graph;
 	private final boolean directed;
+	private int totalVertex = 0;
 
 	public AdjacentList(int vertices, boolean directed) {
 		graph = new HashMap<Integer, List<Node>>(vertices);
@@ -18,10 +19,12 @@ public class AdjacentList implements Graph {
 	public void addPath(int source, int destination, int weight) {
 		if (graph.containsKey(source)) {
 			graph.get(source).add(new Node(destination, weight));
+			totalVertex++;
 		} else {
 			List<Node> list = new ArrayList<Node>();
 			list.add(new Node(destination, weight));
 			graph.put(source, list);
+			totalVertex++;
 		}
 		if (!directed) {
 			if (graph.containsKey(destination)) {
@@ -34,6 +37,7 @@ public class AdjacentList implements Graph {
 		}
 	}
 
+	@Override
 	public int[] getNeighbours(int vertics) {
 		if (vertics < 0) {
 			return new int[0];
@@ -62,7 +66,7 @@ public class AdjacentList implements Graph {
 	@Override
 	public int countVertices() {
 		// TODO Auto-generated method stub
-		return graph.size();
+		return totalVertex;
 	}
 
 }
