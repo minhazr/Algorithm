@@ -9,6 +9,11 @@ public class AdjacentMatrix implements Graph {
 
 	public AdjacentMatrix(int vertices) {
 		matrix = new int[vertices][vertices];
+		for (int i = 0; i < vertices; i++) {
+			for (int j = 0; j < vertices; j++) {
+				matrix[i][j] = UNASSIGNED;
+			}
+		}
 	}
 
 	@Override
@@ -20,13 +25,14 @@ public class AdjacentMatrix implements Graph {
 		matrix[destination][source] = weight;
 	}
 
+	@Override
 	public int[] getNeighbours(int vertics) {
 		if (vertics < 0) {
 			return new int[0];
 		}
 		List<Integer> list = new ArrayList<Integer>();
 		for (int i = 0; i < matrix.length; i++) {
-			if (matrix[vertics][i] > 0) {
+			if (matrix[vertics][i] != UNASSIGNED) {
 				list.add(i);
 			}
 		}
@@ -50,7 +56,7 @@ public class AdjacentMatrix implements Graph {
 		if (!isValidVertices(source, destination)) {
 			return false;
 		}
-		if (matrix[source][destination] > 0) {
+		if (matrix[source][destination] != UNASSIGNED) {
 			return true;
 		}
 
@@ -60,6 +66,22 @@ public class AdjacentMatrix implements Graph {
 	@Override
 	public void addPath(int source, int destination) {
 		addPath(source, destination, -1);
+
+	}
+
+	public List<Node> getAdjacentVertices(int vertics) {
+		if (vertics < 0) {
+			return new ArrayList<Node>();
+		}
+		List<Node> list = new ArrayList<Node>();
+		for (int i = 0; i < matrix.length; i++) {
+			if (matrix[vertics][i] != UNASSIGNED) {
+				Node node = new Node(i, matrix[vertics][i]);
+				list.add(node);
+			}
+		}
+
+		return list;
 
 	}
 
