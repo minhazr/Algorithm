@@ -9,6 +9,7 @@ Some algorithim and problems. I will keep updating the list when i get chance to
 - Graph 
     - Maximum Flow -ford fulkerson
     - BFS
+    - Topological Sort in DAG
 - Binary Tree
     - Level Order/Reverse Level Order
     - Preorder/Inorder using stack
@@ -26,5 +27,8 @@ Some algorithim and problems. I will keep updating the list when i get chance to
     - Unique path
     - Unique path with obstacle
     - Shortest path with left, right, top and bottom move
+    - Shortest path in DAG
 - Bit Manipulation
     - Non repeating single number
+- String
+    - Interleaving String (Dynamic/reursive)
