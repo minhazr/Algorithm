@@ -1,6 +1,6 @@
 package com.minhaz.algorithm.ds;
 
-public class Node {
+public class Node implements Comparable<Node> {
 
 	private int vertex;
 	private int weight;
@@ -38,6 +38,17 @@ public class Node {
 	 */
 	public void setWeight(int weight) {
 		this.weight = weight;
+	}
+
+	@Override
+	public int compareTo(Node e) {
+		if (weight < e.weight) {
+			return -1;
+		} else if (weight > e.weight) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 
 }
