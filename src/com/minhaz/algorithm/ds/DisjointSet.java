@@ -7,15 +7,22 @@ public class DisjointSet<T> {
 	private HashMap<T, T> set = new HashMap<T, T>();
 	private HashMap<T, Integer> rank = new HashMap<T, Integer>();
 
+	public DisjointSet(T[] items) {
+		for (T item : items) {
+			set.put(item, item);
+			rank.put(item, 1);
+		}
+	}
+
 	public T find(T item) {
-		if (item == null) {
-			return null;
-		}
-		if (set.containsKey(item)) {
-			return set.get(item);
+
+		T root = set.get(item);
+		if (root == item) {
+			return root;
 		} else {
-			return find(set.get(item));
+			return find(set.get(root));
 		}
+
 	}
 
 	public void union(T item1, T item2) {
@@ -46,7 +53,13 @@ public class DisjointSet<T> {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		Integer[] items = new Integer[3];
+		items[0] = 1;
+		items[1] = 2;
+		items[2] = 3;
+		DisjointSet<Integer> set = new DisjointSet<Integer>(items);
+		set.union(1, 2);
+		System.out.println(set.find(2));
 
 	}
-
 }
