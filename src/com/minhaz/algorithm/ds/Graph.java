@@ -9,6 +9,11 @@ public interface Graph {
 
 	public int countVertices();
 	public int[] getNeighbours(int vertics);
+	public int[] getVertices();
 	public List<Node> getAdjacentVertices(int vertics);
+
+	public List<Edge> getSortedEdges();
+
+	public Graph getTranspose();
 
 }

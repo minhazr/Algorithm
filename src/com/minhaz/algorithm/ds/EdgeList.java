@@ -1,6 +1,7 @@
 package com.minhaz.algorithm.ds;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,7 +12,6 @@ public class EdgeList implements Graph {
 	@Override
 	public void addPath(int source, int destination, int weight) {
 		// TODO Auto-generated method stub
-
 		edges.add(new Edge(source, destination, weight));
 
 	}
@@ -58,6 +58,13 @@ public class EdgeList implements Graph {
 		}
 		return nodes;
 	}
+
+	@Override
+	public List<Edge> getSortedEdges() {
+		Collections.sort(edges);
+
+		return edges;
+	}
 	/**
 	 * @param args
 	 */
@@ -65,5 +72,28 @@ public class EdgeList implements Graph {
 		// TODO Auto-generated method stub
 
 	}
+	@Override
+	public int[] getVertices() {
+		Set<Integer> set = new HashSet<Integer>();
+		for (Edge edge : edges) {
+			set.add(edge.src);
+			set.add(edge.dest);
+		}
+		int[] result = new int[set.size()];
+		int i = 0;
+		for (int item : set) {
+			result[i] = item;
+			i++;
+		}
+		return result;
+	}
+	@Override
+	public Graph getTranspose() {
+		Graph graph = new EdgeList();
+		for (Edge edge : edges) {
+			graph.addPath(edge.dest, edge.src, edge.weight);
+		}
 
+		return graph;
+	}
 }

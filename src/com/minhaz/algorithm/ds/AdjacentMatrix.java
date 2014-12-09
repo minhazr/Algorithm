@@ -1,11 +1,17 @@
 package com.minhaz.algorithm.ds;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AdjacentMatrix implements Graph {
 
 	private final int[][] matrix;
+
+	private AdjacentMatrix(int[][] graph) {
+		this.matrix = graph;
+
+	}
 
 	public AdjacentMatrix(int vertices) {
 		matrix = new int[vertices][vertices];
@@ -69,6 +75,7 @@ public class AdjacentMatrix implements Graph {
 
 	}
 
+	@Override
 	public List<Node> getAdjacentVertices(int vertics) {
 		if (vertics < 0) {
 			return new ArrayList<Node>();
@@ -89,6 +96,42 @@ public class AdjacentMatrix implements Graph {
 	public int countVertices() {
 		// TODO Auto-generated method stub
 		return matrix.length;
+	}
+
+	@Override
+	public List<Edge> getSortedEdges() {
+		// TODO Auto-generated method stub
+		List<Edge> edges = new ArrayList<Edge>();
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix.length; j++) {
+				if (matrix[i][j] != UNASSIGNED) {
+					edges.add(new Edge(i, j, matrix[i][j]));
+				}
+			}
+		}
+		Collections.sort(edges);
+		return edges;
+	}
+
+	@Override
+	public int[] getVertices() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Graph getTranspose() {
+		int[][] tGraph = new int[matrix.length][matrix.length];
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix.length; j++) {
+				if (matrix[i][j] != UNASSIGNED) {
+					tGraph[j][i] = matrix[i][j];
+				} else {
+					tGraph[j][i] = UNASSIGNED;
+				}
+			}
+		}
+		return new AdjacentMatrix(tGraph);
 	}
 
 }

@@ -88,4 +88,29 @@ public class AdjacentList implements Graph {
 		return set.size();
 	}
 
+	@Override
+	public List<Edge> getSortedEdges() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int[] getVertices() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Graph getTranspose() {
+		Graph tGraph = new AdjacentList(countVertices(), directed);
+		for (int source : graph.keySet()) {
+			List<Node> nodes = getAdjacentVertices(source);
+			for (Node node : nodes) {
+				tGraph.addPath(node.getVertex(), source, node.getWeight());
+			}
+
+		}
+		return tGraph;
+	}
+
 }
