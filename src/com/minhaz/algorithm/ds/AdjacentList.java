@@ -113,4 +113,15 @@ public class AdjacentList implements Graph {
 		return tGraph;
 	}
 
+	@Override
+	public boolean hasPath(int source, int destination) {
+		int[] neighbours = getNeighbours(source);
+		for (int i : neighbours) {
+			if (i == destination) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

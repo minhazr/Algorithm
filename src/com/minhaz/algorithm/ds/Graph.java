@@ -15,5 +15,6 @@ public interface Graph {
 	public List<Edge> getSortedEdges();
 
 	public Graph getTranspose();
+	public boolean hasPath(int source, int destination);
 
 }

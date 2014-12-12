@@ -96,4 +96,17 @@ public class EdgeList implements Graph {
 
 		return graph;
 	}
+	@Override
+	public boolean hasPath(int source, int destination) {
+		// TODO Auto-generated method stub
+		for (Edge edge : edges) {
+			if ((edge.src == source) && (edge.dest == destination)) {
+				return true;
+			}
+			if ((edge.dest == source) && (edge.src == destination)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

@@ -134,4 +134,12 @@ public class AdjacentMatrix implements Graph {
 		return new AdjacentMatrix(tGraph);
 	}
 
+	@Override
+	public boolean hasPath(int source, int destination) {
+		if (matrix[source][destination] != UNASSIGNED) {
+			return true;
+		}
+		return false;
+	}
+
 }
