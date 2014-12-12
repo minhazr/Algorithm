@@ -120,7 +120,11 @@ public class AdjacentMatrix implements Graph {
 	@Override
 	public int[] getVertices() {
 		// TODO Auto-generated method stub
-		return null;
+		int[] result = new int[countVertices()];
+		for (int i = 0; i < result.length; i++) {
+			result[i] = i;
+		}
+		return result;
 	}
 
 	@Override

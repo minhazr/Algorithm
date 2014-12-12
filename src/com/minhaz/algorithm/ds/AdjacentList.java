@@ -96,8 +96,14 @@ public class AdjacentList implements Graph {
 
 	@Override
 	public int[] getVertices() {
-		// TODO Auto-generated method stub
-		return null;
+		int[] result = new int[countVertices()];
+
+		int i = 0;
+		for (int item : set) {
+			result[i] = item;
+			i++;
+		}
+		return result;
 	}
 
 	@Override
