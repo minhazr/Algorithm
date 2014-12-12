@@ -163,4 +163,10 @@ public class AdjacentMatrix implements Graph {
 		}
 	}
 
+	@Override
+	public boolean isDirected() {
+		// TODO Auto-generated method stub
+		return directed;
+	}
+
 }

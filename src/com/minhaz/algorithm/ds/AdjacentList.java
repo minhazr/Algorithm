@@ -141,4 +141,10 @@ public class AdjacentList implements Graph {
 		return UNASSIGNED;
 	}
 
+	@Override
+	public boolean isDirected() {
+		// TODO Auto-generated method stub
+		return this.directed;
+	}
+
 }

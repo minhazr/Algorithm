@@ -18,5 +18,6 @@ public interface Graph {
 	public boolean hasPath(int source, int destination);
 
 	public int getWeight(int source, int destination);
+	public boolean isDirected();
 
 }
