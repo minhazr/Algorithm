@@ -124,4 +124,15 @@ public class AdjacentList implements Graph {
 		return false;
 	}
 
+	@Override
+	public int getWeight(int source, int destination) {
+		List<Node> nodes = getAdjacentVertices(source);
+		for (Node node : nodes) {
+			if (node.getVertex() == destination) {
+				return node.getWeight();
+			}
+		}
+		return UNASSIGNED;
+	}
+
 }

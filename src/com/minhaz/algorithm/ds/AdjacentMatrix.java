@@ -7,14 +7,16 @@ import java.util.List;
 public class AdjacentMatrix implements Graph {
 
 	private final int[][] matrix;
+	private boolean directed;
 
 	private AdjacentMatrix(int[][] graph) {
 		this.matrix = graph;
 
 	}
 
-	public AdjacentMatrix(int vertices) {
+	public AdjacentMatrix(int vertices, boolean directed) {
 		matrix = new int[vertices][vertices];
+		this.directed = directed;
 		for (int i = 0; i < vertices; i++) {
 			for (int j = 0; j < vertices; j++) {
 				matrix[i][j] = UNASSIGNED;
@@ -28,7 +30,9 @@ public class AdjacentMatrix implements Graph {
 			return;
 		}
 		matrix[source][destination] = weight;
-		matrix[destination][source] = weight;
+		if (!directed) {
+			matrix[destination][source] = weight;
+		}
 	}
 
 	@Override
@@ -136,10 +140,23 @@ public class AdjacentMatrix implements Graph {
 
 	@Override
 	public boolean hasPath(int source, int destination) {
-		if (matrix[source][destination] != UNASSIGNED) {
+		if (directed && (matrix[source][destination] != UNASSIGNED)) {
+			return true;
+		}
+		if (!directed && (matrix[source][destination] != UNASSIGNED)) {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public int getWeight(int source, int destination) {
+		// TODO Auto-generated method stub
+		if (directed) {
+			return matrix[source][destination];
+		} else {
+			return matrix[destination][source];
+		}
 	}
 
 }

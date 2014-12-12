@@ -17,4 +17,6 @@ public interface Graph {
 	public Graph getTranspose();
 	public boolean hasPath(int source, int destination);
 
+	public int getWeight(int source, int destination);
+
 }

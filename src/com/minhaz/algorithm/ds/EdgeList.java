@@ -109,4 +109,16 @@ public class EdgeList implements Graph {
 		}
 		return false;
 	}
+	@Override
+	public int getWeight(int source, int destination) {
+		for (Edge edge : edges) {
+			if ((edge.src == source) && (edge.dest == destination)) {
+				return edge.weight;
+			}
+			if ((edge.dest == source) && (edge.src == destination)) {
+				return edge.weight;
+			}
+		}
+		return UNASSIGNED;
+	}
 }
