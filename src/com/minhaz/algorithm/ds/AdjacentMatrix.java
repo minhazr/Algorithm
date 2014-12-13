@@ -169,4 +169,20 @@ public class AdjacentMatrix implements Graph {
 		return directed;
 	}
 
+	@Override
+	public void printGraph() {
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix.length; j++) {
+				if (matrix[i][j] == UNASSIGNED) {
+					System.out.print(0 + " ");
+				} else {
+					System.out.print(matrix[i][j] + " ");
+				}
+
+			}
+			System.out.println(" ");
+		}
+
+	}
+
 }

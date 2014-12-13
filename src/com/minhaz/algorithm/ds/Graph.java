@@ -19,5 +19,6 @@ public interface Graph {
 
 	public int getWeight(int source, int destination);
 	public boolean isDirected();
+	public void printGraph();
 
 }

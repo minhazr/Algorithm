@@ -126,4 +126,12 @@ public class EdgeList implements Graph {
 		// TODO Auto-generated method stub
 		return true;
 	}
+	@Override
+	public void printGraph() {
+		for (Edge edge : edges) {
+			System.out.println("Source= " + edge.src + " Destination= "
+					+ edge.dest + " Weight= " + edge.weight);
+		}
+
+	}
 }

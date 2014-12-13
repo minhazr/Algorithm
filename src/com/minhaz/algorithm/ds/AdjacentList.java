@@ -147,4 +147,17 @@ public class AdjacentList implements Graph {
 		return this.directed;
 	}
 
+	@Override
+	public void printGraph() {
+		// TODO Auto-generated method stub
+		for (int i : graph.keySet()) {
+			List<Node> nodes = getAdjacentVertices(i);
+			for (Node node : nodes) {
+				System.out.print(node.getVertex() + " ");
+			}
+			System.out.println(" ");
+		}
+
+	}
+
 }
