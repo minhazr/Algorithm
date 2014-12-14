@@ -1,6 +1,7 @@
 package com.minhaz.algorithm.graph;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.minhaz.algorithm.ds.AdjacentMatrix;
@@ -41,7 +42,13 @@ public class MinimumST {
 
 		return output;
 	}
-
+	/**
+	 * Return vertex with minimum weight value from mst set
+	 * 
+	 * @param weight
+	 * @param mst
+	 * @return
+	 */
 	private int getMinimum(int[] weight, boolean[] mst) {
 		int min = Integer.MAX_VALUE;
 		int vertex = 0;
@@ -60,24 +67,27 @@ public class MinimumST {
 		int vertices = graph.countVertices();
 
 		int[] parent = new int[vertices];
-		int[] key = new int[vertices];
+		int[] weights = new int[vertices];
 		boolean[] mst = new boolean[vertices];
 
-		for (int i = 0; i < vertices; i++) {
-			key[i] = Integer.MAX_VALUE;
-			mst[i] = false;
-		}
-		key[0] = 0;
+		Arrays.fill(weights, Integer.MAX_VALUE);
+		Arrays.fill(mst, false);
+
+		weights[0] = 0;
 		parent[0] = -1;
 
 		for (int count = 0; count < (vertices - 1); count++) {
-			int u = getMinimum(key, mst);
+			int u = getMinimum(weights, mst);
 			mst[u] = true;
-			for (int v = 0; v < vertices; v++) {
-				int currentweight = graph.getWeight(u, v);
-				if (graph.hasPath(u, v) && !mst[v] && (currentweight < key[v])) {
-					key[v] = currentweight;
-					parent[v] = u;
+			for (int vertex = 0; vertex < vertices; vertex++) {
+				int currentweight = graph.getWeight(u, vertex);
+				// if there is a path from current minimum to v && current
+				// vertex is not already added && this path weight is lower then
+				// existing
+				if (graph.hasPath(u, vertex) && !mst[vertex]
+						&& (currentweight < weights[vertex])) {
+					weights[vertex] = currentweight;
+					parent[vertex] = u;
 				}
 			}
 		}
