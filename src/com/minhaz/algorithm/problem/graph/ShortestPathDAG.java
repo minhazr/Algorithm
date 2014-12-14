@@ -1,4 +1,4 @@
-package com.minhaz.algorithm.problem;
+package com.minhaz.algorithm.problem.graph;
 
 import java.util.Arrays;
 import java.util.List;

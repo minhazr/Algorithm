@@ -1,4 +1,4 @@
-package com.minhaz.algorithm.problem;
+package com.minhaz.algorithm.problem.graph;
 
 public class UniquePaths {
 
