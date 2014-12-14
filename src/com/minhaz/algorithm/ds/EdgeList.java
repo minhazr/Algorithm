@@ -7,7 +7,20 @@ import java.util.List;
 import java.util.Set;
 
 public class EdgeList implements Graph {
-	private List<Edge> edges = new ArrayList<Edge>();
+	private List<Edge> edges;
+
+	public EdgeList(Graph graph) {
+		edges = new ArrayList<Edge>();
+		int vertices = graph.countVertices();
+		for (int i = 0; i < vertices; i++) {
+			for (int j = 0; j < vertices; j++) {
+				addPath(i, j, graph.getWeight(i, j));
+			}
+		}
+	}
+	public EdgeList() {
+		edges = new ArrayList<Edge>();
+	}
 
 	@Override
 	public void addPath(int source, int destination, int weight) {

@@ -13,6 +13,16 @@ public class AdjacentMatrix implements Graph {
 		this.matrix = graph;
 
 	}
+	public AdjacentMatrix(Graph graph) {
+		int vertices = graph.countVertices();
+		matrix = new int[vertices][vertices];
+		for (int i = 0; i < vertices; i++) {
+			for (int j = 0; j < vertices; j++) {
+				matrix[i][j] = graph.getWeight(i, j);
+			}
+		}
+
+	}
 	public AdjacentMatrix(int row, int column, boolean directed) {
 		this.matrix = new int[row][column];
 		this.directed = directed;

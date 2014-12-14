@@ -18,6 +18,19 @@ public class AdjacentList implements Graph {
 
 	}
 
+	public AdjacentList(Graph graph) {
+		this.graph = new HashMap<Integer, List<Node>>();
+		this.directed = graph.isDirected();
+		this.set = new HashSet<Integer>();
+		int vertices = graph.countVertices();
+		for (int i = 0; i < vertices; i++) {
+			for (int j = 0; j < vertices; j++) {
+				addPath(i, j, graph.getWeight(i, j));
+			}
+		}
+
+	}
+
 	@Override
 	public void addPath(int source, int destination, int weight) {
 		set.add(destination);
