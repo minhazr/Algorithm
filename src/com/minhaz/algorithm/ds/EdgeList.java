@@ -134,4 +134,15 @@ public class EdgeList implements Graph {
 		}
 
 	}
+	@Override
+	public void updateWeight(int source, int destination, int weight) {
+		for (Edge edge : edges) {
+			if ((edge.src == source) && (edge.dest == destination)) {
+				edges.remove(edge);
+				edges.add(new Edge(source, destination, weight));
+			}
+
+		}
+
+	}
 }

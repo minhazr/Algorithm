@@ -160,4 +160,17 @@ public class AdjacentList implements Graph {
 
 	}
 
+	@Override
+	public void updateWeight(int source, int destination, int weight) {
+		List<Node> nodes = getAdjacentVertices(source);
+		for (Node node : nodes) {
+			if (node.getVertex() == destination) {
+				nodes.remove(node);
+				nodes.add(new Node(destination, weight));
+				graph.put(source, nodes);
+			}
+		}
+
+	}
+
 }

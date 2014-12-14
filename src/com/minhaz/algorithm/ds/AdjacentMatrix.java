@@ -166,11 +166,7 @@ public class AdjacentMatrix implements Graph {
 	@Override
 	public int getWeight(int source, int destination) {
 		// TODO Auto-generated method stub
-		if (directed) {
-			return matrix[source][destination];
-		} else {
-			return matrix[destination][source];
-		}
+		return matrix[source][destination];
 	}
 
 	@Override
@@ -192,6 +188,11 @@ public class AdjacentMatrix implements Graph {
 			}
 			System.out.println(" ");
 		}
+
+	}
+	@Override
+	public void updateWeight(int source, int destination, int weight) {
+		matrix[source][destination] = weight;
 
 	}
 
