@@ -1,8 +1,7 @@
 package com.minhaz.algorithm.graph;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Stack;
 
 import com.minhaz.algorithm.ds.AdjacentList;
 import com.minhaz.algorithm.ds.Graph;
@@ -14,43 +13,34 @@ import com.minhaz.algorithm.ds.Graph;
  */
 public class TopologicalSort {
 
-	private boolean[] visited;
-	private List<Integer> stack;
-	private Graph graph;
+	public Stack<Integer> sort(Graph graph) {
+		int vertices = graph.countVertices();
 
-	public TopologicalSort(Graph graph) {
-		this.graph = graph;
-		visited = new boolean[graph.countVertices()];
-		stack = new ArrayList<Integer>();
-		for (int i = 0; i < graph.countVertices(); i++) {
-			visited[i] = false;
-		}
-	}
-
-	public List<Integer> sort() {
-		int graphSize = graph.countVertices();
-		for (int i = 0; i < graphSize; i++) {
-			if (!visited[i]) {
-				sortUtil(i);
+		boolean[] visited = new boolean[vertices];
+		Arrays.fill(visited, false);
+		Stack<Integer> stack = new Stack<Integer>();
+		for (int vertex = 0; vertex < vertices; vertex++) {
+			if (!visited[vertex]) {
+				sortUtil(graph, vertex, visited, stack);
 			}
 		}
 		return stack;
 	}
-	private void sortUtil(int vertex) {
-
+	private void sortUtil(Graph graph, int vertex, boolean[] visited,
+			Stack<Integer> stack) {
 		visited[vertex] = true;
 		int[] neighbours = graph.getNeighbours(vertex);
 		for (int neighbour : neighbours) {
 			if (!visited[neighbour]) {
-				sortUtil(neighbour);
+				sortUtil(graph, neighbour, visited, stack);
 			}
 		}
-		stack.add(vertex);
+		stack.push(vertex);
 
 	}
-	public void printSort(List<Integer> list) {
-		for (int i = list.size() - 1; i >= 0; i--) {
-			System.out.print(list.get(i) + " ");
+	public void printSort(Stack<Integer> stack) {
+		for (int i = stack.size() - 1; i >= 0; i--) {
+			System.out.print(stack.indexOf(i) + " ");
 		}
 		System.out.println("");
 	}
@@ -69,9 +59,9 @@ public class TopologicalSort {
 		graph.addPath(3, 1);
 		System.out.println(Arrays.toString(graph.getNeighbours(2)));
 
-		TopologicalSort tSort = new TopologicalSort(graph);
-		List<Integer> list = tSort.sort();
-		tSort.printSort(list);
+		TopologicalSort tSort = new TopologicalSort();
+
+		tSort.printSort(tSort.sort(graph));
 
 	}
 }

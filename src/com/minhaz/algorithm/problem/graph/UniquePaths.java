@@ -50,56 +50,52 @@ public class UniquePaths {
 	 * An obstacle and empty space is marked as 1 and 0 respectively in the
 	 * grid. links https://oj.leetcode.com/problems/unique-paths-ii/
 	 * 
-	 * @param obstacleGrid
+	 * @param grid
 	 * @return
 	 */
-	public int uniquePathsWithObstacles(int[][] obstacleGrid) {
-		int m = obstacleGrid.length;
-		int n = obstacleGrid[0].length;
+	public int uniquePathsWithObstacles(int[][] grid) {
+		int m = grid.length;
+		int n = grid[0].length;
 		if ((m <= 0) || (n <= 0)) {
 			return 0;
 		}
-		if (obstacleGrid[0][0] == 1) {
+		if (grid[0][0] == 1) {
 			return 0;
 		}
 
-		int[][] matrix = new int[obstacleGrid.length][obstacleGrid[0].length];
-		if (obstacleGrid[0][0] == 0) {
+		int[][] matrix = new int[grid.length][grid[0].length];
+		if (grid[0][0] == 0) {
 			matrix[0][0] = 1;
 		}
-		for (int i = 1; i < obstacleGrid.length; i++) {
-			if ((matrix[i - 1][0] == 1) && (obstacleGrid[i][0] == 0)) {
+		for (int i = 1; i < grid.length; i++) {
+			if ((matrix[i - 1][0] == 1) && (grid[i][0] == 0)) {
 				matrix[i][0] = 1;
 			}
 		}
-
-		for (int i = 1; i < obstacleGrid[0].length; i++) {
-			if ((matrix[0][i - 1] == 1) && (obstacleGrid[0][i] == 0)) {
+		// just check if starting value is accessible
+		for (int i = 1; i < grid[0].length; i++) {
+			if ((matrix[0][i - 1] == 1) && (grid[0][i] == 0)) {
 				matrix[0][i] = 1;
 			}
 		}
 
-		for (int i = 1; i < obstacleGrid.length; i++) {
-			for (int j = 1; j < obstacleGrid[0].length; j++) {
-				if (obstacleGrid[i][j] == 0) {
-					if ((obstacleGrid[i - 1][j] == 0)
-							&& (obstacleGrid[i][j - 1] == 0)) {
+		for (int i = 1; i < grid.length; i++) {
+			for (int j = 1; j < grid[0].length; j++) {
+				if (grid[i][j] == 0) {
+					if ((grid[i - 1][j] == 0) && (grid[i][j - 1] == 0)) {
 						matrix[i][j] = matrix[i - 1][j] + matrix[i][j - 1];
-					} else if ((obstacleGrid[i - 1][j] == 0)
-							&& (obstacleGrid[i][j - 1] != 0)) {
+					} else if ((grid[i - 1][j] == 0) && (grid[i][j - 1] != 0)) {
 						matrix[i][j] = matrix[i - 1][j];
-					} else if ((obstacleGrid[i - 1][j] != 0)
-							&& (obstacleGrid[i][j - 1] == 0)) {
+					} else if ((grid[i - 1][j] != 0) && (grid[i][j - 1] == 0)) {
 						matrix[i][j] = matrix[i][j - 1];
-					} else if ((obstacleGrid[i - 1][j] != 0)
-							&& (obstacleGrid[i][j - 1] != 0)) {
+					} else if ((grid[i - 1][j] != 0) && (grid[i][j - 1] != 0)) {
 						matrix[i][j] = 0;
 					}
 
 				}
 			}
 		}
-		return matrix[obstacleGrid.length - 1][obstacleGrid[0].length - 1];
+		return matrix[grid.length - 1][grid[0].length - 1];
 	}
 
 	/**

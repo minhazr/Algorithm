@@ -2,6 +2,7 @@ package com.minhaz.algorithm.problem.graph;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 import com.minhaz.algorithm.ds.AdjacentList;
 import com.minhaz.algorithm.ds.Graph;
@@ -17,16 +18,16 @@ public class ShortestPathDAG {
 
 	private int[] getShortestPath(int source) {
 		// TODO Auto-generated method stub
-		TopologicalSort sort = new TopologicalSort(graph);
-		List<Integer> list = sort.sort();
-		sort.printSort(list);
+		TopologicalSort sort = new TopologicalSort();
+		Stack<Integer> stack = sort.sort(graph);
+		// sort.printSort(stack);
+		System.out.println("Size of Stack" + stack.size());
 		int[] dis = new int[graph.countVertices()];
-		for (int i = 0; i < dis.length; i++) {
-			dis[i] = Integer.MAX_VALUE;
-		}
+
+		Arrays.fill(dis, Integer.MAX_VALUE);
 		dis[source] = 0;
-		for (int i = list.size() - 1; i >= 0; i--) {
-			int vertex = list.get(i);
+		while (!stack.isEmpty()) {
+			int vertex = stack.pop();
 			if (dis[vertex] != Integer.MAX_VALUE) {
 				List<Node> neighbours = graph.getAdjacentVertices(vertex);
 				for (Node neighbour : neighbours) {
