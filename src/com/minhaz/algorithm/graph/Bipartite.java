@@ -1,11 +1,20 @@
 package com.minhaz.algorithm.graph;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
 import com.minhaz.algorithm.ds.AdjacentMatrix;
 import com.minhaz.algorithm.ds.Graph;
 
+/**
+ * 
+ * Bipartite Graph
+ * 
+ * A Bipartite Graph is a graph whose vertices can be divided into two
+ * independent sets
+ * 
+ */
 public class Bipartite {
 	private static final int BLUE = 1;
 	private static final int RED = 2;
@@ -14,9 +23,7 @@ public class Bipartite {
 	public boolean isBipartite(Graph graph, int src) {
 		int vertices = graph.countVertices();
 		int[] color = new int[vertices];
-		for (int i = 0; i < vertices; ++i) {
-			color[i] = NO_COLOR;
-		}
+		Arrays.fill(color, NO_COLOR);
 
 		color[src] = BLUE;
 
@@ -25,12 +32,12 @@ public class Bipartite {
 
 		while (!queue.isEmpty()) {
 			int u = queue.remove();
-			int[] neiggbours = graph.getNeighbours(u);
-			for (int i : neiggbours) {
-				if (graph.hasPath(u, i) && (color[i] == NO_COLOR)) {
-					color[i] = 3 - color[u];
-					queue.add(i);
-				} else if (graph.hasPath(u, i) && (color[u] == color[i])) {
+			int[] neighbours = graph.getNeighbours(u);
+			for (int neighbour : neighbours) {
+				if (color[neighbour] == NO_COLOR) {
+					color[neighbour] = 3 - color[u];
+					queue.add(neighbour);
+				} else if (color[u] == color[neighbour]) {
 					return false;
 				}
 			}
