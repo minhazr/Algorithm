@@ -9,8 +9,18 @@ public class AdjacentMatrix implements Graph {
 	private final int[][] matrix;
 	private boolean directed;
 
-	private AdjacentMatrix(int[][] graph) {
+	public AdjacentMatrix(int[][] graph) {
 		this.matrix = graph;
+
+	}
+	public AdjacentMatrix(int row, int column, boolean directed) {
+		this.matrix = new int[row][column];
+		this.directed = directed;
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < column; j++) {
+				matrix[i][j] = UNASSIGNED;
+			}
+		}
 
 	}
 
