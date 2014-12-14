@@ -51,4 +51,44 @@ public class Node implements Comparable<Node> {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = (prime * result) + vertex;
+		result = (prime * result) + weight;
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Node)) {
+			return false;
+		}
+		Node other = (Node) obj;
+		if (vertex != other.vertex) {
+			return false;
+		}
+		if (weight != other.weight) {
+			return false;
+		}
+		return true;
+	}
+
 }
