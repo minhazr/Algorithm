@@ -158,4 +158,28 @@ public class EdgeList implements Graph {
 		}
 
 	}
+	@Override
+	public int[] getNeighbours(int vertex, int weight) {
+		List<Node> nodes = getAdjacentVertices(vertex, weight);
+		int[] result = new int[nodes.size()];
+		for (int i = 0; i < result.length; i++) {
+			result[i] = nodes.get(i).getVertex();
+		}
+		return result;
+	}
+	@Override
+	public List<Node> getAdjacentVertices(int vertex, int weight) {
+		List<Node> nodes = new ArrayList<Node>();
+		for (Edge edge : edges) {
+			if (edge.weight > weight) {
+				if (edge.src == vertex) {
+					nodes.add(new Node(edge.dest, edge.weight));
+				} else if (edge.dest == vertex) {
+					nodes.add(new Node(edge.src, edge.weight));
+				}
+			}
+
+		}
+		return nodes;
+	}
 }

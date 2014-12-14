@@ -21,5 +21,7 @@ public interface Graph {
 	public int getWeight(int source, int destination);
 	public boolean isDirected();
 	public void printGraph();
+	public int[] getNeighbours(int vertics, int weight);
+	public List<Node> getAdjacentVertices(int vertex, int weight);
 
 }

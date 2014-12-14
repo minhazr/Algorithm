@@ -186,4 +186,49 @@ public class AdjacentList implements Graph {
 
 	}
 
+	@Override
+	public int[] getNeighbours(int vertics, int weight) {
+		if (vertics < 0) {
+			return new int[0];
+		}
+		int[] result;
+		if (graph.containsKey(vertics)) {
+			List<Node> list = graph.get(vertics);
+			List<Node> temp = new ArrayList<Node>();
+			for (Node node : list) {
+				if (node.getWeight() > weight) {
+					temp.add(node);
+				}
+			}
+			result = new int[temp.size()];
+			for (int i = 0; i < result.length; i++) {
+				result[i] = temp.get(i).getVertex();
+
+			}
+			return result;
+		}
+
+		return new int[0];
+	}
+
+	@Override
+	public List<Node> getAdjacentVertices(int vertex, int weight) {
+		if (vertex < 0) {
+			return new ArrayList<Node>();
+		}
+		if (graph.containsKey(vertex)) {
+			List<Node> result = new ArrayList<Node>();
+			List<Node> nodes = graph.get(vertex);
+			for (Node node : nodes) {
+				if (node.getWeight() > weight) {
+					result.add(node);
+				}
+			}
+			return result;
+
+		}
+
+		return new ArrayList<Node>();
+	}
+
 }

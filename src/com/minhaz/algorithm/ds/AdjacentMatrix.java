@@ -73,6 +73,31 @@ public class AdjacentMatrix implements Graph {
 		return result;
 
 	}
+	/**
+	 * Return neigbours with weight greater then given weight
+	 * 
+	 * @param vertics
+	 * @param weight
+	 * @return
+	 */
+	@Override
+	public int[] getNeighbours(int vertics, int weight) {
+		if (vertics < 0) {
+			return new int[0];
+		}
+		List<Integer> list = new ArrayList<Integer>();
+		for (int i = 0; i < matrix.length; i++) {
+			if (matrix[vertics][i] > weight) {
+				list.add(i);
+			}
+		}
+		int[] result = new int[list.size()];
+		for (int i = 0; i < result.length; i++) {
+			result[i] = list.get(i);
+		}
+		return result;
+
+	}
 	private boolean isValidVertices(int source, int destination) {
 		if ((source < 0) || (source >= matrix.length)) {
 			return false;
@@ -204,6 +229,21 @@ public class AdjacentMatrix implements Graph {
 	public void updateWeight(int source, int destination, int weight) {
 		matrix[source][destination] = weight;
 
+	}
+	@Override
+	public List<Node> getAdjacentVertices(int vertex, int weight) {
+		if (vertex < 0) {
+			return new ArrayList<Node>();
+		}
+		List<Node> list = new ArrayList<Node>();
+		for (int i = 0; i < matrix.length; i++) {
+			if (matrix[vertex][i] > weight) {
+				Node node = new Node(i, matrix[vertex][i]);
+				list.add(node);
+			}
+		}
+
+		return list;
 	}
 
 }
