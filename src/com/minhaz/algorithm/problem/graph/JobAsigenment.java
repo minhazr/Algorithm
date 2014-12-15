@@ -18,22 +18,21 @@ import com.minhaz.algorithm.ds.Graph;
  */
 
 public class JobAsigenment {
-	private static int applicant = 6;
-	private static int job = 6;
+	private int applicant = 6;
+	private int job = 6;
 	private static final int AVAILABE = -1;
 	public int getMaxAssigenment(Graph graph) {
-		int vetices = graph.countVertices();
+		// int vetices = graph.countVertices();
 		int[] applicants = new int[job];
 		Arrays.fill(applicants, AVAILABE);
 
-		boolean[] assigenments = new boolean[job];
-		Arrays.fill(assigenments, false);
+		boolean[] jobs = new boolean[job];
+		Arrays.fill(jobs, false);
 
 		int result = 0;
 		for (int applicant = 0; applicant < this.applicant; applicant++) {
-			Arrays.fill(assigenments, false);
-			if (isAssigenmentPossible(graph, applicant, applicants,
-					assigenments)) {
+			Arrays.fill(jobs, false);
+			if (isAssigenmentPossible(graph, applicant, applicants, jobs)) {
 				result++;
 			}
 
@@ -43,15 +42,19 @@ public class JobAsigenment {
 	}
 
 	private boolean isAssigenmentPossible(Graph graph, int applicant,
-			int[] applicants, boolean[] assigenments) {
+			int[] applicants, boolean[] jobs) {
 		for (int job = 0; job < this.job; job++) {
-			if (graph.hasPath(applicant, job) && !assigenments[job]) {
-				assigenments[job] = true;
-
+			// if applicant wants this job and job is still available
+			if (graph.hasPath(applicant, job) && !jobs[job]) {
+				// mark job as not available
+				jobs[job] = true;
+				// job is not given to an applicant OR if we can assign this
+				// applicant another job
 				if ((applicants[job] == AVAILABE)
 						|| isAssigenmentPossible(graph, applicants[job],
-								applicants, assigenments)) {
-					applicants[applicant] = job;
+								applicants, jobs)) {
+					// assign the applicant job
+					applicants[job] = applicant;
 					return true;
 				}
 
