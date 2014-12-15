@@ -5,36 +5,41 @@ import java.util.Arrays;
 import com.minhaz.algorithm.ds.AdjacentMatrix;
 import com.minhaz.algorithm.ds.Graph;
 
+/**
+ * 
+ * uses backtracking algorithm
+ * 
+ */
 public class HamiltonianCycle {
 
 	public boolean isHamiltonianCycle(Graph graph) {
 		int vertices = graph.countVertices();
-		int[] path = new int[vertices];
-		Arrays.fill(path, -1);
-		path[0] = 0;
-		if (!hamCycleUtil(graph, path, 1)) {
+		int[] paths = new int[vertices];
+		Arrays.fill(paths, -1);
+		paths[0] = 0;
+		if (!hamCycleUtil(graph, paths, 1)) {
 			return false;
 		}
 		return true;
 
 	}
 
-	private boolean hamCycleUtil(Graph graph, int[] path, int position) {
+	private boolean hamCycleUtil(Graph graph, int[] paths, int position) {
 		int vertices = graph.countVertices();
 		if (position == vertices) {
-			if (graph.hasPath(path[position - 1], path[0])) {
+			if (graph.hasPath(paths[position - 1], paths[0])) {
 				return true;
 			}
 			return false;
 		}
 
 		for (int vertex = 1; vertex < graph.countVertices(); vertex++) {
-			if (isSafe(vertex, graph, path, position)) {
-				path[position] = vertex;
-				if (hamCycleUtil(graph, path, position + 1)) {
+			if (isSafe(vertex, graph, paths, position)) {
+				paths[position] = vertex;
+				if (hamCycleUtil(graph, paths, position + 1)) {
 					return true;
 				}
-				path[position] = -1;
+				paths[position] = -1;
 			}
 		}
 
