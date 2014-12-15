@@ -182,4 +182,13 @@ public class EdgeList implements Graph {
 		}
 		return nodes;
 	}
+	@Override
+	public int[] countIndgree() {
+		int vertices = countVertices();
+		int[] in = new int[vertices];
+		for (Edge edge : edges) {
+			in[edge.dest]++;
+		}
+		return in;
+	}
 }

@@ -23,5 +23,6 @@ public interface Graph {
 	public void printGraph();
 	public int[] getNeighbours(int vertics, int weight);
 	public List<Node> getAdjacentVertices(int vertex, int weight);
+	public int[] countIndgree();
 
 }

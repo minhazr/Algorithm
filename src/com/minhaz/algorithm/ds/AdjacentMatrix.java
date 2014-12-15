@@ -11,6 +11,7 @@ public class AdjacentMatrix implements Graph {
 
 	public AdjacentMatrix(int[][] graph) {
 		this.matrix = graph;
+		this.directed = false;
 
 	}
 	public AdjacentMatrix(Graph graph) {
@@ -244,6 +245,19 @@ public class AdjacentMatrix implements Graph {
 		}
 
 		return list;
+	}
+
+	public int[] countIndgree() {
+		int vertices = countVertices();
+		int[] in = new int[vertices];
+		for (int i = 0; i < vertices; i++) {
+			for (int j = 0; j < vertices; j++) {
+				if (getWeight(i, j) != UNASSIGNED) {
+					in[j]++;
+				}
+			}
+		}
+		return in;
 	}
 
 }

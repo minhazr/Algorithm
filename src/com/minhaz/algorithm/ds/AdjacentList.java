@@ -231,4 +231,17 @@ public class AdjacentList implements Graph {
 		return new ArrayList<Node>();
 	}
 
+	@Override
+	public int[] countIndgree() {
+		int vertices = countVertices();
+		int[] in = new int[vertices];
+		for (int i : graph.keySet()) {
+			List<Node> nodes = graph.get(i);
+			for (Node node : nodes) {
+				in[node.getVertex()]++;
+			}
+		}
+		return in;
+	}
+
 }
