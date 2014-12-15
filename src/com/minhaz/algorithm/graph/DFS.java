@@ -10,7 +10,9 @@ public class DFS {
 		visited[source] = true;
 		int[] neighbours = graph.getNeighbours(source);
 		for (int neighbour : neighbours) {
-			doDfsR(graph, neighbour, visited);
+			if (!visited[neighbour]) {
+				doDfsR(graph, neighbour, visited);
+			}
 		}
 
 	}
@@ -29,6 +31,58 @@ public class DFS {
 				stack.push(neighbour);
 			}
 		}
+
+	}
+	/**
+	 * Do a standard DFS on given Graph. Returned Stack fill with vertices in
+	 * traversing order. For example: if for node u,v and u is traversed before
+	 * v u added to stack first.
+	 * 
+	 * @param graph
+	 *            Graph for DFS
+	 * @param source
+	 *            starting vertices
+	 * @param visited
+	 *            boolean array to keep track if a node is visited or not
+	 * @return vertices in stack
+	 */
+	public static void getDfsOrder(Graph graph, int source, boolean[] visited,
+			Stack<Integer> stack) {
+
+		stack.add(source);
+		visited[source] = true;
+		int[] neighbours = graph.getNeighbours(source);
+		for (int neighbour : neighbours) {
+			if (!visited[neighbour]) {
+				getDfsOrder(graph, neighbour, visited, stack);
+			}
+		}
+
+	}
+
+	/**
+	 * Do a standard DFS on given Graph. Returned Stack fill with vertices in
+	 * reverse order. For example: For node u,v and u is traversed before v, v
+	 * added to stack first.
+	 * 
+	 * @param graph
+	 *            Graph for DFS
+	 * @param source
+	 *            starting vertices
+	 * @param visited
+	 *            boolean array to keep track if a node is visited or not
+	 */
+	public static void getDfsRevereseOrder(Graph graph, int source,
+			boolean[] visited, Stack<Integer> stack) {
+
+		visited[source] = true;
+		int[] neighbours = graph.getNeighbours(source);
+		for (int neighbour : neighbours) {
+			if (!visited[neighbour]) {
+				getDfsRevereseOrder(graph, neighbour, visited, stack);
+			}
+		}
+		stack.add(source);
 
 	}
 
