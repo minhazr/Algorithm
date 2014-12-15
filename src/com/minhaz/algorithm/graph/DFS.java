@@ -24,7 +24,7 @@ public class DFS {
 				continue;
 			}
 			visited[vertex] = true;
-			int[] neighbours = graph.getNeighbours(vertex);
+			int[] neighbours = graph.getNeighbours(vertex, 0);
 			for (int neighbour : neighbours) {
 				stack.push(neighbour);
 			}

@@ -9,152 +9,54 @@ import com.minhaz.algorithm.ds.Graph;
 
 public class FordFulkerson {
 
-	/**
-	 * This works by doing BFS on graph.
-	 * 
-	 * @param rGraph
-	 * @param s
-	 * @param t
-	 * @param parent
-	 * @return
-	 */
-	private boolean hasAugmentedPath(int rGraph[][], int s, int t, int parent[]) {
-		// Create a visited array and mark all vertices as not visited
-		boolean[] visited = new boolean[rGraph.length];
-
-		// Create a queue, enqueue source vertex and mark source vertex
-		// as visited
-		Queue<Integer> q = new LinkedList<Integer>();
-		q.add(s);
-		visited[s] = true;
-		parent[s] = -1;
-
-		// Standard BFS Loop
-		while (!q.isEmpty()) {
-			int u = q.peek();
-			q.poll();
-
-			for (int v = 0; v < rGraph.length; v++) {
-				if ((visited[v] == false) && (rGraph[u][v] > 0)) {
-					q.add(v);
-					parent[v] = u;
-					visited[v] = true;
-				}
-			}
-		}
-
-		return visited[t];
-	}
-	public int fordFulkerson(int[][] graph, int s, int t) {
+	public int fordFulkerson(Graph graph, int source, int destination) {
+		int vertices = graph.countVertices();
 		int u, v;
 
-		// Create a residual graph and fill the residual graph with
-		// given capacities in the original graph as residual capacities
-		// in residual graph
-		int[][] rGraph = new int[graph.length][graph.length]; // Residual graph
-																// where
-																// rGraph[i][j]
-		// indicates
-		// residual capacity of edge from i to j (if there
-		// is an edge. If rGraph[i][j] is 0, then there is not)
-		for (u = 0; u < graph.length; u++) {
-			for (v = 0; v < graph.length; v++) {
-				rGraph[u][v] = graph[u][v];
-			}
-		}
+		// copy of original graph
+		Graph residualGraph = new AdjacentMatrix(graph);
 
-		int[] parent = new int[graph.length]; // This array is filled by BFS and
-												// to store
-		// path
-
-		int max_flow = 0; // There is no flow initially
-
-		// we are using weighted graph. And we start with some value.
-		// everytime we used a path its get subtracted.
-		// it means as long as we can do BFS from srouce to
-		// destination we do have a path.
-		while (hasAugmentedPath(rGraph, s, t, parent)) {
-			// Find minimum for this source to destination
-			int path_flow = Integer.MAX_VALUE;
-			for (v = t; v != s; v = parent[v]) {
-				u = parent[v];
-				path_flow = Math.min(path_flow, rGraph[u][v]);
-			}
-
-			// update residual capacities of the edges and reverse edges
-			// along the path
-			for (v = t; v != s; v = parent[v]) {
-				u = parent[v];
-				rGraph[u][v] -= path_flow;
-				rGraph[v][u] += path_flow;
-			}
-
-			// Add path flow to overall flow
-			max_flow += path_flow;
-		}
-
-		// Return the overall flow
-		return max_flow;
-	}
-
-	public int fordFulkerson(Graph graph, int s, int t) {
-		int vertices = graph.countVertices();
-		int source, destination;
-
-		Graph residualGraph = new AdjacentMatrix(vertices, true);
-		// indicates
-		// residual capacity of edge from i to j (if there
-		// is an edge. If rGraph[i][j] is 0, then there is not)
-		for (source = 0; source < vertices; source++) {
-			for (destination = 0; destination < vertices; destination++) {
-				residualGraph.addPath(source, destination,
-						graph.getWeight(source, destination));
-			}
-		}
-
-		int[] parent = new int[vertices]; // This array is filled by BFS and
+		int[] parents = new int[vertices]; // This array is filled by BFS and
 											// to store
 		// path
 
 		int max_flow = 0; // There is no flow initially
 
 		// we are using weighted graph. And we start with some value.
-		// everytime we used a path its get subtracted.
-		// it means as long as we can do BFS from srouce to
+		// Every time we use a weight its get subtracted.
+		// it means as long as we can do BFS from source to
 		// destination we do have a path.
-		while (hasAugmentedPath(residualGraph, s, t, parent)) {
+		while (hasAugmentedPath(residualGraph, source, destination, parents)) {
 			// Find minimum for this source to destination
-			int path_flow = Integer.MAX_VALUE;
-			for (destination = t; destination != s; destination = parent[destination]) {
-				source = parent[destination];
-				path_flow = Math.min(path_flow,
-						residualGraph.getWeight(source, destination));
+			int current_flow = Integer.MAX_VALUE;
+			// starting loop from back
+			for (v = destination; v != source; v = parents[v]) {
+				u = parents[v];
+				current_flow = Math.min(current_flow,
+						residualGraph.getWeight(u, v));
 			}
 
 			// update residual capacities of the edges and reverse edges
 			// along the path
-			for (destination = t; destination != s; destination = parent[destination]) {
-				source = parent[destination];
+			for (v = destination; v != source; v = parents[v]) {
+				u = parents[v];
 
-				residualGraph.updateWeight(source, destination,
-						residualGraph.getWeight(source, destination)
-								- path_flow);
-				residualGraph.updateWeight(destination, source,
-						residualGraph.getWeight(destination, source)
-								+ path_flow);
+				residualGraph.updateWeight(u, v, residualGraph.getWeight(u, v)
+						- current_flow);
+
+				// if we have reverse edge just want to make sure we ignore it.
+				residualGraph.updateWeight(v, u, residualGraph.getWeight(v, u)
+						+ current_flow);
 			}
 
 			// Add path flow to overall flow
-			max_flow += path_flow;
+			max_flow += current_flow;
 		}
-		// residualGraph.printGraph();
-
-		// Return the overall flow
 		return max_flow;
 	}
 
-	private boolean hasAugmentedPath(Graph graph, int source, int sink,
-			int[] parent) {
+	public boolean hasAugmentedPath(Graph graph, int source, int destination,
+			int[] parents) {
 		int vertices = graph.countVertices();
 		boolean[] visited = new boolean[vertices];
 		Arrays.fill(visited, false);
@@ -164,19 +66,19 @@ public class FordFulkerson {
 		Queue<Integer> queue = new LinkedList<Integer>();
 		queue.add(source);
 		visited[source] = true;
-		parent[source] = -1;
+		parents[source] = -1;
 		while (!queue.isEmpty()) {
 			int u = queue.poll();
 			for (int vertex = 0; vertex < vertices; vertex++) {
 				if (!visited[vertex] && (graph.getWeight(u, vertex) > 0)) {
 					queue.add(vertex);
-					parent[vertex] = u;
+					parents[vertex] = u;
 					visited[vertex] = true;
 				}
 			}
 		}
 
-		return visited[sink];
+		return visited[destination];
 	}
 	/**
 	 * @param args
