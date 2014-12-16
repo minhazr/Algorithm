@@ -9,6 +9,11 @@ public class AdjacentMatrix implements Graph {
 	private final int[][] matrix;
 	private boolean directed;
 
+	public AdjacentMatrix(int[][] graph, boolean directed) {
+		this.matrix = graph;
+		this.directed = false;
+
+	}
 	public AdjacentMatrix(int[][] graph) {
 		this.matrix = graph;
 		this.directed = false;
@@ -185,7 +190,7 @@ public class AdjacentMatrix implements Graph {
 				}
 			}
 		}
-		return new AdjacentMatrix(tGraph);
+		return new AdjacentMatrix(tGraph, this.directed);
 	}
 
 	@Override
@@ -247,6 +252,7 @@ public class AdjacentMatrix implements Graph {
 		return list;
 	}
 
+	@Override
 	public int[] countIndgree() {
 		int vertices = countVertices();
 		int[] in = new int[vertices];
