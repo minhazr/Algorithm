@@ -27,10 +27,13 @@ public class Eular {
 	}
 
 	private boolean hasEularCircuitDAG(Graph graph) {
+		// 1) All vertices with nonzero degree belong to a single strongly
+		// connected component.
 		StronglyConnected stronglyConnected = new StronglyConnected();
 		if (!stronglyConnected.isStronglyConnected(graph)) {
 			return false;
 		}
+		// 2) In degree and out degree of every vertex is same.
 		int[] in = graph.countIndgree();
 		int vertices = graph.countVertices();
 		for (int vertex = 0; vertex < vertices; vertex++) {
@@ -41,11 +44,13 @@ public class Eular {
 		return true;
 	}
 	private boolean hasEularCircuitUndirected(Graph graph) {
-		if (!hasEularPathUndirected(graph)) {
+		// (1) All vertices with non-zero degree are connected.
+		if (!isNonZeroDegreeVerticesConnected(graph)) {
 			return false;
 		}
-		int vertices = graph.countVertices();
 
+		// (2) All vertices have even degree.
+		int vertices = graph.countVertices();
 		int odd = 0;
 		for (int i = 0; i < vertices; i++) {
 			if ((graph.getNeighbours(i).length & 1) == 1) {
@@ -53,7 +58,7 @@ public class Eular {
 			}
 		}
 
-		if (odd > 2) {
+		if (odd > 0) {
 			return false;
 		}
 		return true;
@@ -62,6 +67,27 @@ public class Eular {
 		return false;
 	}
 	private boolean hasEularPathUndirected(Graph graph) {
+		// (1) all vertices with non zero degree need to be connected
+		if (isNonZeroDegreeVerticesConnected(graph)) {
+			return false;
+		}
+
+		// (2) number of odd vertices has to be between zero to two
+		int vertices = graph.countVertices();
+		int odd = 0;
+		for (int i = 0; i < vertices; i++) {
+			// counting number of odd vertices
+			if (((graph.getNeighbours(i).length & 1) == 1)) {
+				odd++;
+			}
+		}
+
+		if (odd <= 2) {
+			return true;
+		}
+		return false;
+	}
+	private boolean isNonZeroDegreeVerticesConnected(Graph graph) {
 		int i = 0;
 		int vertices = graph.countVertices();
 		boolean[] visited = new boolean[vertices];
@@ -83,8 +109,9 @@ public class Eular {
 		DFS.doDfsR(graph, i, visited);
 		// dfsUtil(i);
 
+		// (1) all vertices with non zero degree need to be connected
 		for (i = 0; i < vertices; i++) {
-			if (!visited[i] && (graph.getNeighbours(i).length > 0)) {
+			if ((visited[i] == false) && (graph.getNeighbours(i).length > 0)) {
 				return false;
 			}
 		}
@@ -103,15 +130,15 @@ public class Eular {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Graph graph = new AdjacentMatrix(5, true);
+		Graph graph = new AdjacentMatrix(5, false);
 		graph.addPath(1, 0, 1);
-		graph.addPath(0, 2, 1);
-		graph.addPath(2, 1, 1);
-		graph.addPath(0, 3, 1);
+		graph.addPath(1, 2, 1);
+		graph.addPath(1, 4, 1);
+		graph.addPath(1, 3, 1);
+		graph.addPath(2, 4, 1);
 		graph.addPath(3, 4, 1);
-		graph.addPath(4, 0, 1);
 		Eular eular = new Eular();
-		System.out.println(eular.hasEularCircuitDAG(graph));
+		System.out.println(eular.hasEularPathUndirected(graph));
 
 	}
 
