@@ -35,6 +35,8 @@ public class Bipartite {
 			int[] neighbours = graph.getNeighbours(u);
 			for (int neighbour : neighbours) {
 				if (color[neighbour] == NO_COLOR) {
+					// subtracting by 3 is just to make sure we have alternate
+					// color. i got 3 as i initialized color value 1 and 2
 					color[neighbour] = 3 - color[u];
 					queue.add(neighbour);
 				} else if (color[u] == color[neighbour]) {
