@@ -1,9 +1,7 @@
 Algorithm
 =========
 
-When first time I start working with different algorithims, I got overwhilmd by different advance techniques and creative solutions of an Algorithim. At that moment I was struggling with algorithim itself. So, most algorithim I implemented here are not highly optimized rather simple implementation of problem itself and the way my bain understands it.  
-
-Please consider these solutions as psudeo code in Java which also work as a complete program. 
+When first time I start working with different algorithims, I got overwhilmd by different advance techniques and creative implementation of the Algorithim. At that moment I was struggling with algorithim itself. So, most algorithim I implemented here are simple implementation of algorithim itself and the way my bain understands it. 
 
 I will keep updating the list when i get chance to add more. 
 
