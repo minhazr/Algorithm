@@ -1,8 +1,6 @@
 Algorithm
 =========
 
-When first time I start working with different algorithims, I got overwhilmd by different advance techniques and creative implementation of the Algorithim. At that moment I was struggling with algorithim itself. So, most algorithim I implemented here are simple implementation of algorithim itself and the way my bain understands it. 
-
 I will keep updating the list when i get chance to add more. 
 
 **Algorithm**
