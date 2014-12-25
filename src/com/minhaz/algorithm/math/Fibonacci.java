@@ -1,4 +1,4 @@
-package com.minhaz.algorithm;
+package com.minhaz.algorithm.math;
 
 public class Fibonacci {
 
