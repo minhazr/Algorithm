@@ -33,7 +33,7 @@ public class HamiltonianCycle {
 			return false;
 		}
 
-		for (int vertex = 1; vertex < graph.countVertices(); vertex++) {
+		for (int vertex = 1; vertex < vertices; vertex++) {
 			if (isSafe(vertex, graph, paths, position)) {
 				paths[position] = vertex;
 				if (hamCycleUtil(graph, paths, position + 1)) {
@@ -58,6 +58,15 @@ public class HamiltonianCycle {
 
 		return true;
 	}
+
+	// public boolean isHamiltonianCycle(Graph graph, boolean recusive) {
+	// int vertices = graph.countVertices();
+	// boolean[] visited = new boolean[vertices];
+	// for (int vertex = 0; vertex <= vertices; vertex++) {
+	// int[] neighbours = graph.getNeighbours(vertex);
+	//
+	// }
+	// }
 
 	/**
 	 * @param args
