@@ -9,6 +9,9 @@ I will keep updating the list when i get chance to add more.
     - Disjoint Set
 - String
     - Knuth-morris-pratt
+- Sort
+    - Counting Sort
+    - Bit Vector
 - Graph 
     - Maximum Flow -ford fulkerson
     - BFS
