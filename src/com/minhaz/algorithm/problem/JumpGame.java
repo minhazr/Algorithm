@@ -156,6 +156,24 @@ public class JumpGame {
 		}
 		return matrix;
 	}
+	int jump(int arr[], int n) {
+		int cur = 0;
+		int max_reach = 0;
+		int ct = 0;
+
+		while ((cur < n) && (max_reach < (n - 1))) {
+			int n_max_reach = 0;
+			for (; cur <= max_reach; cur++) {
+				n_max_reach = Math.max(n_max_reach, cur + arr[cur]);
+			}
+			ct++;
+			max_reach = n_max_reach;
+			if (max_reach >= (n - 1)) {
+				break;
+			}
+		}
+		return ct;
+	}
 
 	/**
 	 * @param args

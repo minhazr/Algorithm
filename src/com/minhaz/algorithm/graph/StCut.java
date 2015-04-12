@@ -54,6 +54,7 @@ public class StCut {
 		List<Edge> edges = new ArrayList<Edge>();
 		for (int i = 0; i < vertices; i++) {
 			for (int j = 0; j < vertices; j++) {
+				// has a path from visited to non visited
 				if (visited[i] && !visited[j] && (graph.getWeight(i, j) > 0)) {
 					edges.add(new Edge(i, j, graph.getWeight(i, j)));
 				}

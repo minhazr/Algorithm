@@ -115,16 +115,8 @@ public class BinaryTree {
 	 * nodes' values. (ie, from left to right, level by level from leaf to
 	 * root).
 	 * 
-	 * For example: Given binary tree {3,9,20,#,#,15,7}, 
-	 * 	3 
-	 * / \ 
-	 * 9 20 
-	 * 	 / \ 
-	 * 	15  7
-	 * return its bottom-up level order traversal as: 
-	 * [ [15,7], 
-	 * [9,20], 
-	 * [3] ]
+	 * For example: Given binary tree {3,9,20,#,#,15,7}, 3 / \ 9 20 / \ 15 7
+	 * return its bottom-up level order traversal as: [ [15,7], [9,20], [3] ]
 	 * 
 	 * @param root
 	 * @return
@@ -157,14 +149,18 @@ public class BinaryTree {
 	}
 	/**
 	 * Return max depth of binary tree
-	 * @param root Root of the tree
+	 * 
+	 * @param root
+	 *            Root of the tree
 	 * @return
 	 */
 	public int maxDepth(TreeNode root) {
-        if (root==null) return 0;
-        return Math.max(maxDepth(root.left), maxDepth(root.right))+1;
-        
-    }
+		if (root == null) {
+			return 0;
+		}
+		return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
+
+	}
 	public int height(TreeNode root) {
 		if (root == null) {
 			return 0;
@@ -172,11 +168,36 @@ public class BinaryTree {
 		return Math.max(height(root.left), height(root.right)) + 1;
 	}
 
+	public int treeLeftNodeSum(TreeNode root, boolean left, int sum) {
+		if (root == null) {
+			return sum;
+		}
+		if ((root.left == null) && (root.right == null) && left) {
+			return sum + root.val;
+		}
+		return treeLeftNodeSum(root.left, true, sum)
+				+ treeLeftNodeSum(root.right, false, sum);
+	}
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		TreeNode node = new TreeNode(20);
+		node.left = new TreeNode(9);
+		node.right = new TreeNode(49);
+
+		node.left.left = new TreeNode(5);
+		node.left.right = new TreeNode(12);
+		node.right.right = new TreeNode(52);
+		node.right.left = new TreeNode(23);
+
+		// node.left.left.left = new TreeNode(5);
+		node.left.right.right = new TreeNode(15);
+		node.right.right.left = new TreeNode(50);
+
+		BinaryTree bTree = new BinaryTree();
+		System.out.println(bTree.treeLeftNodeSum(node, false, 0));
 
 	}
 

@@ -17,7 +17,7 @@ import com.minhaz.algorithm.ds.Graph;
  */
 public class Bipartite {
 	private static final int BLUE = 1;
-	private static final int RED = 2;
+	// private static final int RED = 2;
 	private static final int NO_COLOR = -1;
 
 	public boolean isBipartite(Graph graph, int src) {

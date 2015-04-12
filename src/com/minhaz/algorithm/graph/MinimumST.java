@@ -22,6 +22,8 @@ public class MinimumST {
 		List<Edge> edges = graph.getSortedEdges();
 		Integer[] newArray = new Integer[vertices];
 		int i = 0;
+		// converting to Integer object has nothing to do with original algo.
+		// this is just to match with my implementation of Disjoint set
 		for (int value : graph.getVertices()) {
 			newArray[i++] = Integer.valueOf(value);
 
@@ -33,6 +35,7 @@ public class MinimumST {
 			// Edge edge = edges.get(i);
 			int source = djset.find(edge.src);
 			int destination = djset.find(edge.dest);
+			// if not creating cycle
 			if (source != destination) {
 				output.add(edge);
 				djset.union(source, destination);

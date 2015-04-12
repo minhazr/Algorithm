@@ -5,6 +5,23 @@ import java.util.Arrays;
 import com.minhaz.algorithm.ds.AdjacentMatrix;
 import com.minhaz.algorithm.ds.Graph;
 
+/**
+ * 
+ * Problem Statement
+ * 
+ * A vertex in an undirected connected graph is an articulation point (or cut
+ * vertex) iff removing it (and edges through it) disconnects the graph.
+ * 
+ * A vertex is an articulation point is one of following statements are true:
+ * 
+ * 1) It is the root of tree and it has at least two children.
+ * 
+ * 2) it is not the root of tree but one its child v is, with the condition
+ * that, non of the children of v is not connected to ancestor of v by a back
+ * edge.
+ * 
+ * 
+ */
 public class ArticulationPoint {
 
 	public void findArticulationPoint(Graph graph) {
@@ -86,12 +103,15 @@ public class ArticulationPoint {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Graph graph1 = new AdjacentMatrix(5, false);
+		Graph graph1 = new AdjacentMatrix(7, false);
 		graph1.addPath(1, 0, 1);
-		graph1.addPath(0, 2, 1);
-		graph1.addPath(2, 1, 1);
 		graph1.addPath(0, 3, 1);
+		graph1.addPath(2, 1, 1);
+		graph1.addPath(5, 3, 1);
 		graph1.addPath(3, 4, 1);
+		graph1.addPath(5, 4, 1);
+		graph1.addPath(2, 6, 1);
+		graph1.addPath(2, 3, 1);
 
 		ArticulationPoint point = new ArticulationPoint();
 		point.findArticulationPoint(graph1);

@@ -30,6 +30,7 @@ public class FordFulkerson {
 			// Find minimum for this source to destination
 			int current_flow = Integer.MAX_VALUE;
 			// starting loop from back
+			// finding this minimum for this path
 			for (v = destination; v != source; v = parents[v]) {
 				u = parents[v];
 				current_flow = Math.min(current_flow,
@@ -45,6 +46,8 @@ public class FordFulkerson {
 						- current_flow);
 
 				// if we have reverse edge just want to make sure we ignore it.
+				// Sending flow to both directions is equivalent to canceling
+				// flow
 				residualGraph.updateWeight(v, u, residualGraph.getWeight(v, u)
 						+ current_flow);
 			}
@@ -69,11 +72,12 @@ public class FordFulkerson {
 		parents[source] = -1;
 		while (!queue.isEmpty()) {
 			int u = queue.poll();
-			for (int vertex = 0; vertex < vertices; vertex++) {
-				if (!visited[vertex] && (graph.getWeight(u, vertex) > 0)) {
-					queue.add(vertex);
-					parents[vertex] = u;
-					visited[vertex] = true;
+			int[] neighbours = graph.getNeighbours(u);
+			for (int neighbour : neighbours) {
+				if (!visited[neighbour] && (graph.getWeight(u, neighbour) > 0)) {
+					queue.add(neighbour);
+					parents[neighbour] = u;
+					visited[neighbour] = true;
 				}
 			}
 		}

@@ -44,15 +44,28 @@ public class Eular {
 		return true;
 	}
 	private boolean hasEularCircuitUndirected(Graph graph) {
-		// (1) All vertices with non-zero degree are connected.
+		// (1) If there are no edges in the graph, return true, coz non zero
+		// edge already considered eular
+		int vertices = graph.countVertices();
+		int i = 0;
+		int[] x = new int[]{1, 5};
+		for (i = 0; i < vertices; i++) {
+			if (graph.getNeighbours(i).length != 0) {
+				break;
+			}
+		}
+		if (i == vertices) {
+			return true;
+		}
+		// (2) All vertices with non-zero degree are connected.
 		if (!isNonZeroDegreeVerticesConnected(graph)) {
 			return false;
 		}
 
-		// (2) All vertices have even degree.
-		int vertices = graph.countVertices();
+		// (3) All vertices have even degree.
+		// int vertices = graph.countVertices();
 		int odd = 0;
-		for (int i = 0; i < vertices; i++) {
+		for (i = 0; i < vertices; i++) {
 			if ((graph.getNeighbours(i).length & 1) == 1) {
 				odd++;
 			}
@@ -68,7 +81,7 @@ public class Eular {
 	}
 	private boolean hasEularPathUndirected(Graph graph) {
 		// (1) all vertices with non zero degree need to be connected
-		if (isNonZeroDegreeVerticesConnected(graph)) {
+		if (!isNonZeroDegreeVerticesConnected(graph)) {
 			return false;
 		}
 
@@ -109,9 +122,9 @@ public class Eular {
 		DFS.doDfsR(graph, i, visited);
 		// dfsUtil(i);
 
-		// (1) all vertices with non zero degree need to be connected
+		// (1) all vertices with non zero degree need to be visited/connected
 		for (i = 0; i < vertices; i++) {
-			if ((visited[i] == false) && (graph.getNeighbours(i).length > 0)) {
+			if ((!visited[i]) && (graph.getNeighbours(i).length > 0)) {
 				return false;
 			}
 		}

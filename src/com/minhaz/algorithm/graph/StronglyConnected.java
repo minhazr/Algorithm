@@ -29,7 +29,7 @@ public class StronglyConnected {
 			}
 		}
 		DFS.doDfsR(graph, vertex, visited);
-		// if any non zero degree vertices is not travarsed return false
+		// if any non zero degree vertices is not traversed return false
 		for (int u = 0; u < vertices; u++) {
 			if ((graph.getAdjacentVertices(u).size() > 0) && !visited[vertex]) {
 				return false;
@@ -49,6 +49,19 @@ public class StronglyConnected {
 		}
 
 		return true;
+	}
+
+	public static Stack<Integer> dfs(Graph graph, int source, boolean[] visited) {
+		Stack<Integer> stack = new Stack<Integer>();
+		visited[source] = true;
+		stack.add(source);
+		int[] neighbours = graph.getNeighbours(source);
+		for (int neighbour : neighbours) {
+			if (!visited[neighbour]) {
+				dfs(graph, neighbour, visited);
+			}
+		}
+		return stack;
 	}
 
 	public void getStronglyConnectedComponents(Graph graph) {

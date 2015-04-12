@@ -26,13 +26,13 @@ public class Dijkstra {
 
 			int[] neighbours = graph.getNeighbours(minimum_vertex);
 			for (int neighbour : neighbours) {
-				int neighbour_weight = graph.getWeight(minimum_vertex,
+				int neighbour_distance = graph.getWeight(minimum_vertex,
 						neighbour);
 				if (!visited[neighbour]
 						&& (dist[minimum_vertex] != Integer.MAX_VALUE)
-						&& ((dist[minimum_vertex] + neighbour_weight) < dist[neighbour])) {
+						&& ((dist[minimum_vertex] + neighbour_distance) < dist[neighbour])) {
 
-					dist[neighbour] = dist[minimum_vertex] + neighbour_weight;
+					dist[neighbour] = dist[minimum_vertex] + neighbour_distance;
 
 				}
 

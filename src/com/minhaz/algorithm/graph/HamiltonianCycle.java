@@ -26,6 +26,7 @@ public class HamiltonianCycle {
 
 	private boolean hamCycleUtil(Graph graph, int[] paths, int position) {
 		int vertices = graph.countVertices();
+		// if done visiting all vertices and there is path from first to last.
 		if (position == vertices) {
 			if (graph.hasPath(paths[position - 1], paths[0])) {
 				return true;
@@ -51,6 +52,7 @@ public class HamiltonianCycle {
 			return false;
 		}
 		for (int i = 0; i < position; i++) {
+			// if already included return false
 			if (path[i] == vertex) {
 				return false;
 			}
