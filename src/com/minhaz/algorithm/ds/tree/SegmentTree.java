@@ -4,10 +4,12 @@ import static java.lang.Math.ceil;
 import static java.lang.Math.log;
 import static java.lang.Math.pow;
 
+import java.util.Arrays;
+
 public class SegmentTree {
 
 	private int[] treeItems;
-	private int[] originalItems;
+	private int[] inputItems;
 	int itemCount;
 
 	public void construct(int[] inputs) {
@@ -15,11 +17,16 @@ public class SegmentTree {
 		int size = (2 * (int) pow(2, height)) - 1;
 		this.treeItems = new int[size];
 		itemCount = inputs.length;
-		originalItems = inputs;
+		inputItems = inputs;
 
 		constructUtil(inputs, 0, inputs.length - 1, treeItems, 0);
 		// return this.items;
+		
+		printArray();
 
+	}
+	private void printArray(){
+		System.out.println(Arrays.toString(treeItems));
 	}
 	/**
 	 * 
@@ -80,13 +87,13 @@ public class SegmentTree {
 	public int getTotalItem() {
 		return itemCount;
 	}
-	private int[] getOriginalItems() {
-		return originalItems;
+	private int[] getInputItems() {
+		return inputItems;
 	}
 	public void updateValue(int i, int new_val) {
 		// Check for erroneous input index
 		int size = getTotalItem();
-		int[] arr = getOriginalItems();
+		int[] arr = getInputItems();
 		if ((i < 0) || (i > (size - 1))) {
 			return;
 		}
@@ -150,18 +157,21 @@ public class SegmentTree {
 		int arr[] = {1, 3, 5, 7, 9, 11};
 		SegmentTree tree = new SegmentTree();
 		tree.construct(arr);
+		
+		
 
-		System.out.println(tree.getSum(1, 3));
 
-		tree.updateValue(1, 10);
-
-		System.out.println(tree.getSum(1, 3));
-
-		int[] input = {1, 3, 2, 7, 9, 11};
-		SegmentTree rmqTree = new SegmentTree();
-		rmqTree.construct(input);
-
-		System.out.println(rmqTree.getRangeMinimum(1, 5));
+//		System.out.println(tree.getSum(1, 3));
+//
+//		tree.updateValue(1, 10);
+//
+//		System.out.println(tree.getSum(1, 3));
+//
+//		int[] input = {1, 3, 2, 7, 9, 11};
+//		SegmentTree rmqTree = new SegmentTree();
+//		rmqTree.construct(input);
+//
+//		System.out.println(rmqTree.getRangeMinimum(1, 5));
 
 	}
 
