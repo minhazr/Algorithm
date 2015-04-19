@@ -56,6 +56,25 @@ public class BinarySearchTree {
 		inorder(root.right);
 	}
 
+	public TreeNode treeToList() {
+		TreeNode[] head = new TreeNode[1];
+		createDLL(root, head);
+		return head[0];
+	}
+	private void createDLL(TreeNode root, TreeNode[] head) {
+		if (root == null) {
+			return;
+		}
+		createDLL(root.right, head);
+		root.right = head[0];
+		if (head[0] != null) {
+			head[0].left = root;
+		}
+
+		head[0] = root;
+		createDLL(root.left, head);
+	}
+
 	public void delete(int item) {
 		root = delete(root, item);
 	}
@@ -101,12 +120,17 @@ public class BinarySearchTree {
 		bst.insert(22);
 		bst.inorder();
 		System.out.println();
-		bst.preorder();
-		System.out.println();
-		bst.postOrder();
-
-		bst.delete(20);
-		bst.inorder();
+		// bst.preorder();
+		// System.out.println();
+		// bst.postOrder();
+		//
+		// bst.delete(20);
+		// bst.inorder();
+		TreeNode node = bst.treeToList();
+		while (node != null) {
+			System.out.print(node.data + " ");
+			node = node.right;
+		}
 	}
 
 	private class TreeNode {
