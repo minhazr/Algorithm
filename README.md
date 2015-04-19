@@ -29,8 +29,10 @@ I will keep updating the list when i get chance to add more.
     - Level Order/Reverse Level Order
     - Preorder/Inorder using stack
     - height
- - Interval Tree
- - Segment Tree
+    - Tree to List
+- Interval Tree
+- Segment Tree
+- AVL Tree
 - Math 
     - Fibonacci(Recursive/ Dynamic Programming/ Constant space)
 
