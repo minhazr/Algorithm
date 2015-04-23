@@ -16,9 +16,8 @@ import com.minhaz.algorithm.ds.Graph;
  * 
  * 1) It is the root of tree and it has at least two children.
  * 
- * 2) it is not the root of tree but one its child v is, with the condition
- * that, non of the children of v is not connected to ancestor of v by a back
- * edge.
+ * 2) it is not the root of tree but it has a child v such, none of the 
+ * children of v is connected to ancestor of v by a back edge.
  * 
  * 
  */
