@@ -244,4 +244,20 @@ public class AdjacentList implements Graph {
 		return in;
 	}
 
+	@Override
+	public List<Edge> getAdjacentEdges(int vertex) {
+		List<Edge> edges = new ArrayList<Edge>();
+		List<Node> nodes=graph.get(vertex);
+		for (int neighbour:neighbours){
+			edges.add(new Edge(vertex, neighbour, weight));
+		}
+		return null;
+	}
+
+	@Override
+	public List<Edge> getAdjacentEdges(Edge edge) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

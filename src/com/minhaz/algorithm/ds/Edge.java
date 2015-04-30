@@ -48,11 +48,13 @@ public class Edge implements Comparable<Edge> {
 	public int src;
 	public int dest;
 	public int weight;
+	public boolean visited;
 
 	public Edge(int source, int destination, int weight) {
 		this.src = source;
 		this.dest = destination;
 		this.weight = weight;
+		this.visited=false;
 	}
 
 	@Override

@@ -62,23 +62,22 @@ public class ArticulationPoint {
 		visited[parent] = true;
 		low[parent] = time;
 		discovery[parent] = time;
-		int children = 0;
+		int totalChildren = 0;
 
 		int[] childrens = graph.getNeighbours(parent);
 		for (int child : childrens) {
 			if (!visited[child]) {
 				parents[child] = parent;
 				// counting number of child for this parent
-				children++;
+				totalChildren++;
 				apUtils(graph, child, visited, discovery, low, ap, parents,
 						++time);
-				// we need to make sure that parent always has a lower value
-				// then its child. reason is to avoid a back path from child to
-				// its ancestors.
+				// Recursion ends and if there are no back loop children low can't be less then
+				//parent's low but if it is i need to update that for rules (2)
 				low[parent] = Math.min(low[parent], low[child]);
 
 				// (1) parent is root of DFS tree and has two or more children.
-				if ((parents[parent] == -1) && (children > 1)) {
+				if ((parents[parent] == -1) && (totalChildren > 1)) {
 					ap[parent] = true;
 				}
 
@@ -91,6 +90,9 @@ public class ArticulationPoint {
 				// this is case where their is a path from child to its parent
 				// && parent is already visited.
 			} else if (child != parents[parent]) {
+				//by checking child!=parent avoiding self loop as this has no place in AP
+				//an already visited node found. updating discovery of children
+				// with parents low value for (2)
 				low[parent] = Math.min(low[parent], discovery[child]);
 
 			}

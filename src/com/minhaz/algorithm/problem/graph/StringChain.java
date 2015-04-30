@@ -2,7 +2,7 @@ package com.minhaz.algorithm.problem.graph;
 
 import com.minhaz.algorithm.ds.AdjacentMatrix;
 import com.minhaz.algorithm.ds.Graph;
-import com.minhaz.algorithm.graph.Eular;
+import com.minhaz.algorithm.graph.EularUGraph;
 
 /**
  * 
@@ -25,7 +25,7 @@ public class StringChain {
 			graph.addPath(str.charAt(0) - 'a',
 					str.charAt(str.length() - 1) - 'a', 1);
 		}
-		Eular eular = new Eular();
+		EularUGraph eular = new EularUGraph();
 		return eular.hasEularCircuit(graph);
 	}
 

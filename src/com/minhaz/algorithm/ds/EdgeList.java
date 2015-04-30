@@ -191,4 +191,30 @@ public class EdgeList implements Graph {
 		}
 		return in;
 	}
+	@Override
+	public List<Edge> getAdjacentEdges(int vertex) {
+		List<Edge> edges = new ArrayList<Edge>();
+		for (Edge edge : this.edges) {
+			if (edge.src == vertex) {
+				edges.add(edge);
+			} else if (edge.dest == vertex) {
+				edges.add(edge);
+			}
+		}
+		return edges;
+	}
+	@Override
+	public List<Edge> getAdjacentEdges(Edge edge) {
+		List<Edge> edges = new ArrayList<Edge>();
+		for (Edge current_edge : this.edges) {
+
+			if (current_edge.src == edge.src||current_edge.dest == edge.src) {
+				edges.add(current_edge);
+			} else if (current_edge.dest == edge.dest || current_edge.src == edge.dest) {
+				edges.add(current_edge);
+			}
+		}
+		return edges;
+	}
+	
 }

@@ -258,8 +258,8 @@ public class AdjacentMatrix implements Graph {
 		int[] in = new int[vertices];
 		for (int i = 0; i < vertices; i++) {
 			for (int j = 0; j < vertices; j++) {
-				if (getWeight(i, j) != UNASSIGNED) {
-					in[j]++;
+				if (getWeight(j, i) != UNASSIGNED) {
+					in[i]++;
 				}
 			}
 		}

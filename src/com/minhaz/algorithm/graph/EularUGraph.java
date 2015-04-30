@@ -3,47 +3,16 @@ package com.minhaz.algorithm.graph;
 import java.util.Arrays;
 
 import com.minhaz.algorithm.ds.AdjacentMatrix;
+import com.minhaz.algorithm.ds.EdgeList;
 import com.minhaz.algorithm.ds.Graph;
 
-public class Eular {
+/**
+ * This is Eular for undirected graph
+ *
+ */
+public class EularUGraph {
 
-	public boolean hasEularCircuit(Graph graph) {
-
-		if (graph.isDirected()) {
-			return hasEularCircuitDAG(graph);
-		} else {
-			return hasEularCircuitUndirected(graph);
-		}
-
-	}
-	public boolean hasEularPath(Graph graph) {
-
-		if (graph.isDirected()) {
-			return hasEularPathDAG(graph);
-		} else {
-			return hasEularPathUndirected(graph);
-		}
-
-	}
-
-	private boolean hasEularCircuitDAG(Graph graph) {
-		// 1) All vertices with nonzero degree belong to a single strongly
-		// connected component.
-		StronglyConnected stronglyConnected = new StronglyConnected();
-		if (!stronglyConnected.isStronglyConnected(graph)) {
-			return false;
-		}
-		// 2) In degree and out degree of every vertex is same.
-		int[] in = graph.countIndgree();
-		int vertices = graph.countVertices();
-		for (int vertex = 0; vertex < vertices; vertex++) {
-			if (graph.getAdjacentVertices(vertex).size() != in[vertex]) {
-				return false;
-			}
-		}
-		return true;
-	}
-	private boolean hasEularCircuitUndirected(Graph graph) {
+	public boolean hasEular(Graph graph) {
 		// (1) If there are no edges in the graph, return true, coz non zero
 		// edge already considered eular
 		int vertices = graph.countVertices();
@@ -76,10 +45,9 @@ public class Eular {
 		}
 		return true;
 	}
-	private boolean hasEularPathDAG(Graph graph) {
-		return false;
-	}
-	private boolean hasEularPathUndirected(Graph graph) {
+	
+	
+	public boolean hasPath(Graph graph) {
 		// (1) all vertices with non zero degree need to be connected
 		if (!isNonZeroDegreeVerticesConnected(graph)) {
 			return false;
@@ -131,27 +99,20 @@ public class Eular {
 		return true;
 	}
 
-	// public void dfsUtil(int vetex) {
-	// visited[vetex] = true;
-	// for (int i : graph.getNeighbours(vetex)) {
-	// dfsUtil(i);
-	// }
-	// }
-
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Graph graph = new AdjacentMatrix(5, false);
+		Graph graph = new EdgeList();
 		graph.addPath(1, 0, 1);
 		graph.addPath(1, 2, 1);
 		graph.addPath(1, 4, 1);
 		graph.addPath(1, 3, 1);
 		graph.addPath(2, 4, 1);
 		graph.addPath(3, 4, 1);
-		Eular eular = new Eular();
-		System.out.println(eular.hasEularPathUndirected(graph));
+		EularUGraph eular = new EularUGraph();
+		System.out.println(eular.hasPath(graph));
 
 	}
 
