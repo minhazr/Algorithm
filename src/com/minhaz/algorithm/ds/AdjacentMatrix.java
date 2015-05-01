@@ -265,5 +265,32 @@ public class AdjacentMatrix implements Graph {
 		}
 		return in;
 	}
+	@Override
+	public List<Edge> getAdjacentEdges(int vertex) {
+		List<Edge> edges = new ArrayList<Edge>();
+		int vertices = countVertices();
+		for (int i = 0; i < vertices; i++) {
+			if (getWeight(vertex, i) != UNASSIGNED) {
+				edges.add(new Edge(vertex, i, getWeight(vertex, i)));
+			}
+		}
+		return edges;
+	}
+	@Override
+	public List<Edge> getAdjacentEdges(Edge edge) {
+		List<Edge> edges = new ArrayList<Edge>();
+		int vertices = countVertices();
+		for (int i = 0; i < vertices; i++) {
+			if (getWeight(edge.dest, i) != UNASSIGNED) {
+				edges.add(new Edge(edge.dest, i, getWeight(edge.dest, i)));
+			}
+			if (isDirected()) continue;
+			if (getWeight(edge.src, i) != UNASSIGNED) {
+				edges.add(new Edge(edge.src, i, getWeight(edge.src, i)));
+			}
+		}
+		
+		return edges;
+	}
 
 }
