@@ -8,6 +8,7 @@ import java.util.Set;
 
 public class EdgeList implements Graph {
 	private List<Edge> edges;
+	public boolean directed;
 
 	public EdgeList(Graph graph) {
 		edges = new ArrayList<Edge>();
@@ -17,15 +18,21 @@ public class EdgeList implements Graph {
 				addPath(i, j, graph.getWeight(i, j));
 			}
 		}
+		directed=graph.isDirected();
 	}
 	public EdgeList() {
 		edges = new ArrayList<Edge>();
 	}
 
+
 	@Override
 	public void addPath(int source, int destination, int weight) {
 		// TODO Auto-generated method stub
 		edges.add(new Edge(source, destination, weight));
+		if(!isDirected()){
+			edges.add(new Edge(destination, source, weight));
+		}
+		
 
 	}
 	@Override
@@ -137,7 +144,7 @@ public class EdgeList implements Graph {
 	@Override
 	public boolean isDirected() {
 		// TODO Auto-generated method stub
-		return true;
+		return directed;
 	}
 	@Override
 	public void printGraph() {
@@ -197,21 +204,29 @@ public class EdgeList implements Graph {
 		for (Edge edge : this.edges) {
 			if (edge.src == vertex) {
 				edges.add(edge);
-			} else if (edge.dest == vertex) {
+			} 
+			else if (!isDirected()&& edge.dest==vertex){
 				edges.add(edge);
 			}
 		}
 		return edges;
 	}
+	
 	@Override
 	public List<Edge> getAdjacentEdges(Edge edge) {
 		List<Edge> edges = new ArrayList<Edge>();
 		for (Edge current_edge : this.edges) {
 
-			if (current_edge.src == edge.src||current_edge.dest == edge.src) {
+			if (edge.dest == current_edge.src) {
 				edges.add(current_edge);
-			} else if (current_edge.dest == edge.dest || current_edge.src == edge.dest) {
-				edges.add(current_edge);
+			}
+			if (isDirected()) continue;
+			if (edge.src==current_edge.src){
+				edges.add(edge);
+			}else if (edge.dest==current_edge.dest){
+				edges.add(edge);
+			}else if (edge.dest==current_edge.src){
+				edges.add(edge);
 			}
 		}
 		return edges;
