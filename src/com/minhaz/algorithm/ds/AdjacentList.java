@@ -247,11 +247,21 @@ public class AdjacentList implements Graph {
 	@Override
 	public List<Edge> getAdjacentEdges(int vertex) {
 		List<Edge> edges = new ArrayList<Edge>();
-		List<Node> nodes=graph.get(vertex);
-		for (int neighbour:neighbours){
-			edges.add(new Edge(vertex, neighbour, weight));
+		
+		if (isDirected()){
+			List<Node> nodes=graph.get(vertex);
+			for (Node node:nodes){
+				edges.add(new Edge(vertex, node.getVertex(), node.getWeight()));
+			}
+			return edges;
 		}
-		return null;
+		//this is adjacency list so we need to iterate through 
+		//every item in map.
+		
+		for (int i : graph.keySet()) {
+			List<Node> nodes=graph.get(vertex);
+		}
+		return edges;
 	}
 
 	@Override
