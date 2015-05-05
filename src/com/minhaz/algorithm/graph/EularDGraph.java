@@ -52,7 +52,7 @@ public class EularDGraph {
 
 		return false;
 	}
-	public List<Edge> getUnvisitedEdges(Graph graph, int vertex){
+	private List<Edge> getUnvisitedEdges(Graph graph, int vertex){
 		List<Edge> edges = graph.getAdjacentEdges(vertex);
 		for (Edge edge:edges){
 			if (edge.visited){
@@ -70,21 +70,21 @@ public class EularDGraph {
 	private List<Edge> getHierholzerPath(Graph graph, int start_vertex){
 		Stack<Edge> forward =new Stack<Edge>();
 		 Stack<Edge> backtrack =new Stack<Edge>();
-		 List<Edge> edges=graph.getAdjacentEdges(start_vertex);
+		 List<Edge> edges=getUnvisitedEdges(graph, start_vertex);
 		 while (!edges.isEmpty()){
 			 edges.get(0).visited=true;
 			 forward.push(edges.get(0));
-			 edges=graph.getAdjacentEdges(edges.get(0).dest);
+			 edges=getUnvisitedEdges(graph, edges.get(0).dest);
 		 }
 		 Edge e;
 		 while (!forward.empty()){
 			 e=forward.pop();
 			 backtrack.push(e);
-			 edges=graph.getAdjacentEdges(e.src);
+			 edges=getUnvisitedEdges(graph, e.src);
 			 while (!edges.isEmpty()){
 				 edges.get(0).visited=true;
 				 forward.push(edges.get(0));
-				 edges=graph.getAdjacentEdges(edges.get(0).dest);
+				 edges=getUnvisitedEdges(graph, edges.get(0).dest);
 			 }
 		 }
 		 List<Edge> path = new ArrayList<Edge>();
@@ -106,7 +106,7 @@ public class EularDGraph {
 		graph.addPath(2, 4, 1);
 		graph.addPath(3, 4, 1);
 		EularDGraph eular = new EularDGraph();
-		System.out.println(eular.hasPath(graph));
+		System.out.println(eular.hasPath(graph, 0, 1));
 
 	}
 
