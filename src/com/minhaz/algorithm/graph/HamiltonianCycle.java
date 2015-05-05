@@ -6,9 +6,9 @@ import com.minhaz.algorithm.ds.AdjacentMatrix;
 import com.minhaz.algorithm.ds.Graph;
 
 /**
- * 
+ *
  * uses backtracking algorithm
- * 
+ *
  */
 public class HamiltonianCycle {
 
@@ -34,9 +34,10 @@ public class HamiltonianCycle {
 			return false;
 		}
 
-		for (int vertex = 1; vertex < vertices; vertex++) {
-			if (isSafe(vertex, graph, paths, position)) {
-				paths[position] = vertex;
+		int[] neighbours=graph.getNeighbours(paths[position-1]);
+		for (int neightbor:neighbours){
+			if (notIncludedInPath(neightbor, paths, position)){
+				paths[position] = neightbor;
 				if (hamCycleUtil(graph, paths, position + 1)) {
 					return true;
 				}
@@ -44,13 +45,21 @@ public class HamiltonianCycle {
 			}
 		}
 
+//		for (int vertex = 1; vertex < vertices; vertex++) {
+//			if (graph.hasPath(paths[position-1], vertex) && notincludedInCycle(vertex, paths, position)) {
+//				paths[position] = vertex;
+//				if (hamCycleUtil(graph, paths, position + 1)) {
+//					return true;
+//				}
+//				paths[position] = -1;
+//			}
+//		}
+
 		return false;
 	}
 
-	private boolean isSafe(int vertex, Graph graph, int[] path, int position) {
-		if (!graph.hasPath(path[position - 1], vertex)) {
-			return false;
-		}
+	private boolean notIncludedInPath(int vertex, int[] path, int position) {
+
 		for (int i = 0; i < position; i++) {
 			// if already included return false
 			if (path[i] == vertex) {
