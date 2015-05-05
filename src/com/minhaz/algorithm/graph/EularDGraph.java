@@ -1,14 +1,12 @@
 package com.minhaz.algorithm.graph;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
 import com.minhaz.algorithm.ds.Edge;
 import com.minhaz.algorithm.ds.EdgeList;
 import com.minhaz.algorithm.ds.Graph;
-import com.minhaz.algorithm.ds.Node;
 
 /**
  * This is Eular for directed graph
@@ -20,7 +18,7 @@ public class EularDGraph {
 	 *  2) In degree and out degree of every vertex is same.
 	 */
 	/**
-	 * 
+	 *
 	 * @param graph
 	 * @return
 	 */
@@ -41,8 +39,17 @@ public class EularDGraph {
 		}
 		return true;
 	}
-	public boolean hasPath(Graph graph) {
+	public boolean hasPath(Graph graph, int soruce, int dest) {
 		//http://stones333.blogspot.com/2013/11/find-eulerian-path-in-directed-graph.html
+		List<Edge> path = getHierholzerPath(graph, soruce);
+		   if ((path==null) || (path.size()==0)) {
+		    return false;
+		   } else if ( path.get(path.size()-1).dest == dest ) {
+		     System.out.println ("\nEulerian path found:");
+		     printPath(path);
+		     return true;
+		   }
+
 		return false;
 	}
 	public List<Edge> getUnvisitedEdges(Graph graph, int vertex){
@@ -52,12 +59,41 @@ public class EularDGraph {
 				edges.remove(edge);
 			}
 		}
-		
+
 		return edges;
 	}
+	public void printPath(List<Edge> path) {
+		   for (int i=0; i<path.size(); i++) {
+		    System.out.print(path.get(i).src + "->" + path.get(i).dest + " ");
+		   }
+		  }
 	private List<Edge> getHierholzerPath(Graph graph, int start_vertex){
 		Stack<Edge> forward =new Stack<Edge>();
 		 Stack<Edge> backtrack =new Stack<Edge>();
+		 List<Edge> edges=graph.getAdjacentEdges(start_vertex);
+		 while (!edges.isEmpty()){
+			 edges.get(0).visited=true;
+			 forward.push(edges.get(0));
+			 edges=graph.getAdjacentEdges(edges.get(0).dest);
+		 }
+		 Edge e;
+		 while (!forward.empty()){
+			 e=forward.pop();
+			 backtrack.push(e);
+			 edges=graph.getAdjacentEdges(e.src);
+			 while (!edges.isEmpty()){
+				 edges.get(0).visited=true;
+				 forward.push(edges.get(0));
+				 edges=graph.getAdjacentEdges(edges.get(0).dest);
+			 }
+		 }
+		 List<Edge> path = new ArrayList<Edge>();
+		   while(!backtrack.isEmpty()) {
+		    Edge edge = backtrack.pop();
+		    path.add(edge);
+		   }
+
+		   return path;
 	}
 
 	public static void main(String[] args) {
