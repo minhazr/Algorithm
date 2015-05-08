@@ -12,8 +12,8 @@ import com.minhaz.algorithm.ds.Graph;
 public class MinimumST {
 
 	/**
-	 * Implementation of Kruskal Minimam spanning tree algorithm.
-	 * 
+	 * Implementation of Kruskal Minimum spanning tree algorithm.
+	 *
 	 * @param graph
 	 * @return
 	 */
@@ -47,7 +47,7 @@ public class MinimumST {
 	}
 	/**
 	 * Return vertex with minimum weight value from mst set
-	 * 
+	 *
 	 * @param weight
 	 * @param mst
 	 * @return
@@ -82,15 +82,13 @@ public class MinimumST {
 		for (int count = 0; count < (vertices - 1); count++) {
 			int u = getMinimum(weights, mst);
 			mst[u] = true;
-			for (int vertex = 0; vertex < vertices; vertex++) {
-				int currentweight = graph.getWeight(u, vertex);
-				// if there is a path from current minimum to v && current
-				// vertex is not already added && this path weight is lower then
-				// existing
-				if (graph.hasPath(u, vertex) && !mst[vertex]
-						&& (currentweight < weights[vertex])) {
-					weights[vertex] = currentweight;
-					parent[vertex] = u;
+			int[] adjacents=graph.getNeighbours(u);
+			for (int adjacent:adjacents){
+				int currentweight = graph.getWeight(u, adjacent);
+				if (!mst[adjacent]
+						&& (currentweight < weights[adjacent])) {
+					weights[adjacent] = currentweight;
+					parent[adjacent] = u;
 				}
 			}
 		}
