@@ -95,11 +95,7 @@ public class AdjacentList implements Graph {
 
 	}
 
-	@Override
-	public int countVertices() {
-		// TODO Auto-generated method stub
-		return set.size();
-	}
+
 
 	@Override
 	public List<Edge> getSortedEdges() {
@@ -244,22 +240,14 @@ public class AdjacentList implements Graph {
 		return in;
 	}
 
+
 	@Override
 	public List<Edge> getAdjacentEdges(int vertex) {
 		List<Edge> edges = new ArrayList<Edge>();
-		
-		if (isDirected()){
-			List<Node> nodes=graph.get(vertex);
-			for (Node node:nodes){
-				edges.add(new Edge(vertex, node.getVertex(), node.getWeight()));
-			}
-			return edges;
-		}
-		//this is adjacency list so we need to iterate through 
-		//every item in map.
-		
-		for (int i : graph.keySet()) {
-			List<Node> nodes=graph.get(vertex);
+
+		List<Node> nodes=graph.get(vertex);
+		for (Node node:nodes){
+			edges.add(new Edge(vertex, node.getVertex(), node.getWeight()));
 		}
 		return edges;
 	}
@@ -267,7 +255,28 @@ public class AdjacentList implements Graph {
 	@Override
 	public List<Edge> getAdjacentEdges(Edge edge) {
 		// TODO Auto-generated method stub
-		return null;
+		List<Edge> edges=getAdjacentEdges(edge.src);
+		edges.addAll(getAdjacentEdges(edge.dest));
+		return edges;
+	}
+
+	@Override
+	public int countEdges() {
+		int edge=0;
+		for (int source:set){
+			for (int dest:set){
+				if (hasPath(source, dest)){
+					//edges.add(new Edge(source, dest, getWeight(source, dest)));
+					edge++;
+				}
+			}
+		}
+		return edge;
+	}
+	@Override
+	public int countVertices() {
+		// TODO Auto-generated method stub
+		return set.size();
 	}
 
 }

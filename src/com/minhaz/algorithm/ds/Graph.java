@@ -26,5 +26,6 @@ public interface Graph {
 	public List<Edge> getAdjacentEdges(int vertex);
 	public List<Edge> getAdjacentEdges(Edge edge);
 	public int[] countIndgree();
+	public int countEdges();
 
 }

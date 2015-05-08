@@ -81,7 +81,7 @@ public class AdjacentMatrix implements Graph {
 	}
 	/**
 	 * Return neigbours with weight greater then given weight
-	 * 
+	 *
 	 * @param vertics
 	 * @param weight
 	 * @return
@@ -155,7 +155,6 @@ public class AdjacentMatrix implements Graph {
 
 	@Override
 	public List<Edge> getSortedEdges() {
-		// TODO Auto-generated method stub
 		List<Edge> edges = new ArrayList<Edge>();
 		for (int i = 0; i < matrix.length; i++) {
 			for (int j = 0; j < matrix.length; j++) {
@@ -166,6 +165,19 @@ public class AdjacentMatrix implements Graph {
 		}
 		Collections.sort(edges);
 		return edges;
+	}
+
+	@Override
+	public int countEdges() {
+		int edge=0;
+		for (int[] element : matrix) {
+			for (int j = 0; j < matrix.length; j++) {
+				if (element[j] != UNASSIGNED) {
+					edge++;
+				}
+			}
+		}
+		return edge;
 	}
 
 	@Override
@@ -218,12 +230,12 @@ public class AdjacentMatrix implements Graph {
 
 	@Override
 	public void printGraph() {
-		for (int i = 0; i < matrix.length; i++) {
+		for (int[] element : matrix) {
 			for (int j = 0; j < matrix.length; j++) {
-				if (matrix[i][j] == UNASSIGNED) {
+				if (element[j] == UNASSIGNED) {
 					System.out.print(0 + " ");
 				} else {
-					System.out.print(matrix[i][j] + " ");
+					System.out.print(element[j] + " ");
 				}
 
 			}
@@ -284,12 +296,14 @@ public class AdjacentMatrix implements Graph {
 			if (getWeight(edge.dest, i) != UNASSIGNED) {
 				edges.add(new Edge(edge.dest, i, getWeight(edge.dest, i)));
 			}
-			if (isDirected()) continue;
+			if (isDirected()) {
+				continue;
+			}
 			if (getWeight(edge.src, i) != UNASSIGNED) {
 				edges.add(new Edge(edge.src, i, getWeight(edge.src, i)));
 			}
 		}
-		
+
 		return edges;
 	}
 

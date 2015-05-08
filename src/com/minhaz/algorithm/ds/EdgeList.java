@@ -32,7 +32,7 @@ public class EdgeList implements Graph {
 		if(!isDirected()){
 			edges.add(new Edge(destination, source, weight));
 		}
-		
+
 
 	}
 	@Override
@@ -51,7 +51,8 @@ public class EdgeList implements Graph {
 		return set.size();
 	}
 
-	public int countEdge() {
+	@Override
+	public int countEdges() {
 		return edges.size();
 	}
 
@@ -204,14 +205,14 @@ public class EdgeList implements Graph {
 		for (Edge edge : this.edges) {
 			if (edge.src == vertex) {
 				edges.add(edge);
-			} 
-			else if (!isDirected()&& edge.dest==vertex){
+			}
+			else if (!isDirected()&& (edge.dest==vertex)){
 				edges.add(edge);
 			}
 		}
 		return edges;
 	}
-	
+
 	@Override
 	public List<Edge> getAdjacentEdges(Edge edge) {
 		List<Edge> edges = new ArrayList<Edge>();
@@ -220,7 +221,9 @@ public class EdgeList implements Graph {
 			if (edge.dest == current_edge.src) {
 				edges.add(current_edge);
 			}
-			if (isDirected()) continue;
+			if (isDirected()) {
+				continue;
+			}
 			if (edge.src==current_edge.src){
 				edges.add(edge);
 			}else if (edge.dest==current_edge.dest){
@@ -231,5 +234,5 @@ public class EdgeList implements Graph {
 		}
 		return edges;
 	}
-	
+
 }
